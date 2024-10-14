@@ -1,0 +1,19 @@
+
+GraFiles
+	sistema de archivos web
+	usuario final: empleados de la empresa
+vistas
+	login
+		form: {username;password}
+	
+roles
+	empleado
+		get/add/del/mod archivo
+		mod password
+	administrador extends empleado
+		add empleado
+		get papeleria (historial de del archivo)
+sistema de archivos
+	directorios principales
+		root: para archivos privados
+		shared: para archivos publicos
