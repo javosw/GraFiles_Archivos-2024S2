@@ -12,8 +12,41 @@ roles
 		mod password
 	administrador extends empleado
 		add empleado
-		get papeleria (historial de del archivo)
+		get papeleria (historial de archivos eliminados)
 sistema de archivos
 	directorios principales
 		root: para archivos privados
 		shared: para archivos publicos
+	se prohibe la transferencia de archivos root <-> shared
+	extensiones de archivos permitidas: txt html png jpg
+	para directorio root
+		add archivo de texto
+			form: {nombre,extension (txt,html)}
+			editor de texto con boton guardar
+		mod archivo de texto
+			editor de texto con boton guardar
+		add directorio
+			set nombre
+		copy archivo/directorio
+			desde directorio actual hacia directorio actual
+		cut archivo/directorio
+			desde directorio actual hacia otro directorio
+		del archivo/directorio
+			cut desde directorio actual hacia <<papeleria>>
+			cada archivo/directorio en papeleria ya no es visible para el usuario
+		share <<archivo>>
+			form: {username}
+			copy desde <<directorio actual>> hacia <<directorio shared>> del username 
+		add imagen
+		mod imagen
+			reemplazar imagen actual
+	para directorio shared
+		view <<archivos>>
+			nombre & extension
+			username
+			fecha & hora
+		open <<archivo>>
+		del <<archivo>>
+
+
+
