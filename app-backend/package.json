@@ -2,18 +2,26 @@
   "name": "app-backend",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/index.js",
+  "main": "./src-js/index/index.js",
   "type": "module",
   "scripts": {
-    "dev": "node --loader=ts-node/esm --env-file=.env --watch src/index.ts",
-    "build": "tsc",
-    "start": "node dist/index.js"
+    "noded": "nodemon --watch ./src-js",
+    "tsd":"npx tsc --watch",
+    "node": "node ./src-js/index/index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "nodemon": "^3.1.7",
+    "typescript": "^5.6.3",
+    "ts-node": "^10.9.2",
     "@types/express": "^5.0.0",
-    "ts-node": "^10.9.2"
+    "@types/node": "^22.7.5"
+  },
+  "dependencies": {
+    "express": "^4.21.1",
+    "express-session": "^1.18.1",
+    "cors": "^2.8.5"
   }
 }
