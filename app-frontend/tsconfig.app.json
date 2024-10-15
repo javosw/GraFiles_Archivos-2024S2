@@ -7,7 +7,7 @@
     "types": []
   },
   "files": [
-    "src/gf-meta/main.ts"
+    "src/app-main/main.ts"
   ],
   "include": [
     "src/**/*.d.ts"
