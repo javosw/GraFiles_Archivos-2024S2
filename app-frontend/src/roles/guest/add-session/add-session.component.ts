@@ -18,39 +18,12 @@ export class AddSessionComponent {
 
   form_addUser:DataAddSession = { username:'',password:'' }
 
-  flag_getUserOk:boolean = false;
-  flag_getUserReq:boolean = false;
-
-  getUser(){
-    this.flag_getUserReq = false;
-    this.flag_getUserOk = false;
-
-    this.guestService.getClient(this.form_addUser.username).subscribe({
-      next: (value: any) => {
-        this.flag_getUserOk = true;
-        this.flag_getUserReq = true;
-      },
-      complete: () => {
-      },
-      error: (error) => {
-        this.flag_getUserOk = false;
-        this.flag_getUserReq = true;
-      }
-    });
-  }
-
-  flag_addUserReq:boolean = false;
-  flag_addUserOk:boolean = false;
-
-
-
   flag_addSessionOk: boolean = false;
   flag_addSessionReq: boolean = false;
 
-
   addSession(){
     this.flag_addSessionReq = false;
-    //this.flag_addSessionOk esta manejada por 
+    //this.flag_addSessionOk esta manejada por GuestService
 
     this.guestService.addSession(this.form_addUser.username,this.form_addUser.password).subscribe({
       next: (value: DataSession) => {
@@ -74,9 +47,5 @@ export class AddSessionComponent {
       }
     });
   }
-
-  // Replacing a form control value
-  // this.formControl1.setValue('my value');
-  // entrarForm = new FormGroup({ user: new FormControl(''), password: new FormControl('') });
 
 }

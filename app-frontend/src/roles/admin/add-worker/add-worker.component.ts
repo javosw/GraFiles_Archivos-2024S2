@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { GuestService } from '../../../api/services/guest.service';
 import { DataAddSession } from '../../../data/guest.data';
+import { AdminService } from '../../../api/services/admin.service';
 
 @Component({
-  selector: 'gf-add-client',
+  selector: 'gf-add-worker',
   standalone: true,
   imports: [FormsModule, ReactiveFormsModule],
-  templateUrl: './add-client.component.html',
+  templateUrl: './add-worker.component.html',
 })
-export class AddClientComponent {
-  constructor(private guestService:GuestService){
+export class AddWorkerComponent {
+  constructor(private adminService:AdminService){
   }
 
   form_addUser:DataAddSession = { username:'',password:'' }
@@ -22,7 +22,7 @@ export class AddClientComponent {
     this.flag_getUserReq = false;
     this.flag_getUserOk = false;
 
-    this.guestService.getClient(this.form_addUser.username).subscribe({
+    this.adminService.getClient(this.form_addUser.username).subscribe({
       next: (value: any) => {
         this.flag_getUserOk = true;
         this.flag_getUserReq = true;
@@ -43,7 +43,7 @@ export class AddClientComponent {
     this.flag_addUserReq = false;
     this.flag_addUserOk = false;
 
-    this.guestService.addClient(this.form_addUser.username,this.form_addUser.password).subscribe({
+    this.adminService.addClient(this.form_addUser.username,this.form_addUser.password).subscribe({
       next: (value: any) => {
         this.flag_addUserOk = true;
         this.flag_addUserReq = true;
