@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { GuestService } from '../../../app-api/services/guest.service';
-import { DataAddSession } from '../../../app-data/guest.data';
+import { GuestService } from '../../../api/services/guest.service';
+import { DataAddSession } from '../../../data/guest.data';
 
 @Component({
   selector: 'gf-add-client',

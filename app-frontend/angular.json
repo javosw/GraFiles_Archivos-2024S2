@@ -14,8 +14,8 @@
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": "dist/app-frontend",
-            "index": "src/app-main/index.html",
-            "browser": "src/app-main/main.ts",
+            "index": "src/main/index.html",
+            "browser": "src/main/main.ts",
             "polyfills": [
               "zone.js"
             ],
@@ -27,7 +27,7 @@
               }
             ],
             "styles": [
-              "src/app-main/styles.css",
+              "src/main/styles.css",
               "node_modules/bootstrap/dist/css/bootstrap.css"
             ],
             "scripts": [

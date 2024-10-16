@@ -1,10 +1,10 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 
 import { routes } from './app.routes';
-import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { credsInterceptor } from '../app-api/interceptors/creds.interceptor';
-import { authInterceptor } from '../app-api/interceptors/auth.interceptor';
+import { credsInterceptor } from '../api/interceptors/creds.interceptor';
+import { authInterceptor } from '../api/interceptors/auth.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
