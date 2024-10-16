@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-import { DataAddSession, DataSession } from '../../../../app-data/guest.data'; 
-import { GuestService } from '../../../../app-api/services/guest.service';
 import { Router } from '@angular/router';
-import { pathAdminBoard, pathClientBoard } from '../../../../app-meta/app.paths';
+import { GuestService } from '../../../app-api/services/guest.service';
+import { DataAddSession, DataSession } from '../../../app-data/guest.data';
+import { pathAdminBoard, pathClientBoard } from '../../../app-meta/app.paths';
 
 @Component({
   selector: 'gf-add-session',

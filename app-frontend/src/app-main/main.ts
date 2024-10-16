@@ -1,6 +1,6 @@
 import { bootstrapApplication } from '@angular/platform-browser';
 import { appConfig } from '../app-meta/app.config';
-import { HolaComponent } from '../app/roles/guest/hola/hola.component';
+import { HiComponent } from '../roles/guest/hi/hi.component';
 
-bootstrapApplication(HolaComponent, appConfig)
+bootstrapApplication(HiComponent, appConfig)
   .catch((err) => console.error(err));
