@@ -1,13 +1,13 @@
-import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
+import { HttpErrorResponse, HttpHandlerFn, HttpInterceptorFn, HttpRequest } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, throwError } from 'rxjs';
 import { GuestService } from '../services/guest.service';
 import { apiGuestAddSesion } from '../routes/gf.api';
 
-export const authInterceptor: HttpInterceptorFn = (req, next) => {
+export const authInterceptor: HttpInterceptorFn = (req:HttpRequest<unknown>, next:HttpHandlerFn) => {
   let router: Router = inject(Router);
-  let auth: GuestService = inject(GuestService);
+  let guestService: GuestService = inject(GuestService);
 
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
@@ -16,7 +16,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
       let constrUser:boolean = req.url != apiGuestAddSesion;
       if (constr401 && constrUser) {
         router.navigate(['/']);
-        auth.flag_hasSession.next(false);
+        guestService.flag_hasSession.next(false);
       }
 
       return throwError(() => error);
