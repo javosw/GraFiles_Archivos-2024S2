@@ -1,9 +1,9 @@
-export type dataEntrarForm = {
+export type DataAddSession = {
     username:string;
     password:string;
 }
 
-export type dataEntrarResp = {
+export type DataSession = {
     username:string;
     rol:string;
 }

@@ -1,0 +1,11 @@
+<gf-navbar (input_view)="flag_view = $event"></gf-navbar>
+
+@if (flag_view == 'hi') {
+<gf-carousel></gf-carousel>
+}
+@else if(flag_view == 'add-session') {
+<gf-add-session></gf-add-session>
+}
+@else if(flag_view == 'add-client') {
+<gf-add-client></gf-add-client>
+}
