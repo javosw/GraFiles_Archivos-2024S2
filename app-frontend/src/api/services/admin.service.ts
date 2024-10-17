@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { apiGuestAddClient, apiGuestGetClient } from '../routes/gf.api';
+import { apiGuestAddClient, apiGuestGetClient } from '../routes/gf-api.paths';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DataAddSession } from '../../data/guest.data';
 import { Router } from '@angular/router';

@@ -1,2 +1,2 @@
-export let pathAdminBoard = '';
-export let pathClientBoard = '';
+export let pathAdminBoard = 'admin';
+export let pathWorkerBoard = 'worker';

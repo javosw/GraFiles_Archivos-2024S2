@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { GuestService } from '../../../api/services/guest.service';
-import { DataAddSession, DataSession } from '../../../data/guest.data';
-import { pathAdminBoard, pathClientBoard } from '../../../meta/app.paths';
+import { DataAddSession } from '../../../data/guest.data';
 
 @Component({
   selector: 'gf-add-session',
@@ -18,34 +17,16 @@ export class AddSessionComponent {
 
   form_addUser:DataAddSession = { username:'',password:'' }
 
-  flag_addSessionOk: boolean = false;
   flag_addSessionReq: boolean = false;
+  flag_addSessionOk: boolean = false;
 
   addSession(){
+
     this.flag_addSessionReq = false;
     //this.flag_addSessionOk esta manejada por GuestService
+    this.guestService.addSession(this.form_addUser);
+    this.flag_addSessionReq = true;
 
-    this.guestService.addSession(this.form_addUser.username,this.form_addUser.password).subscribe({
-      next: (value: DataSession) => {
-        this.flag_addSessionReq = true;
-
-        this.guestService.dataSession = value;
-        this.guestService.flag_hasSession.next(true);
-
-        if (value.rol == 'client') {
-          this.router.navigate([pathClientBoard]);
-        }
-        else if (value.rol == 'admin') {
-          this.router.navigate([pathAdminBoard]);
-        }
-      },
-      complete: () => {
-      },
-      error: (error) => {
-        this.flag_addSessionReq = true;
-        this.guestService.flag_hasSession.next(false);
-      }
-    });
   }
 
 }

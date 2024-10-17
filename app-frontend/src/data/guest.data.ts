@@ -5,5 +5,5 @@ export type DataAddSession = {
 
 export type DataSession = {
     username:string;
-    rol:string;
+    role:string;
 }

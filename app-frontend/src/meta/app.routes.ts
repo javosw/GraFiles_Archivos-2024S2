@@ -7,16 +7,29 @@ export const routes: Routes = [
     { 
         path: 'worker', 
         component: WorkerBoard,
-        canActivate:[rolGuard],
-        canActivateChild:[rolGuard],
+    },
+    { 
+        path: 'admin', 
+        component: AdminBoard,
+    },
+
+];
+/*
+    { 
+        path: 'worker---', 
+        component: WorkerBoard,
+        //canActivate:[rolGuard],
+        //canActivateChild:[rolGuard],
         children:[
             //{ path:'root', component: UserGetEvents },
         ]
     },
     { 
-        path: 'admin', 
+        path: 'admin----', 
         component: AdminBoard,
-        canActivate:[rolGuard],
-        canActivateChild:[rolGuard],
+        //canActivate:[rolGuard],
+        //canActivateChild:[rolGuard],
     },
-];
+
+
+ */

@@ -3,7 +3,7 @@ import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, throwError } from 'rxjs';
 import { GuestService } from '../services/guest.service';
-import { apiGuestAddSesion } from '../routes/gf.api';
+import { apiGuestAddSesion } from '../routes/gf-api.paths';
 
 export const authInterceptor: HttpInterceptorFn = (req:HttpRequest<unknown>, next:HttpHandlerFn) => {
   let router: Router = inject(Router);
