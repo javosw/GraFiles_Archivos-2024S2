@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { apiGuestAddSesion } from '../routes/gf-api.paths';
-import { DataAddSession, DataSession, Role } from '../../data/guest.data';
+import { DataGetSession, DataSession, Role } from '../../data/guest.data';
 import { pathAdminBoard, pathWorkerBoard } from '../../meta/app.paths';
 
 @Injectable({
@@ -16,7 +16,7 @@ export class GuestService {
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  getSession(form: DataAddSession): void {
+  getSession(form: DataGetSession): void {
     let url: string = apiGuestAddSesion;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     this.http.post<DataSession>(url, form, { headers }).subscribe({
@@ -36,24 +36,6 @@ export class GuestService {
       },
       error: (error) => {
         this.hasSession.next(false);
-      }
-    });
-  }
-
-  testSession(role: Role | null) {
-    let url:string = '';
-    if(!role) url = 'http://localhost:3000/test-roles';
-    else if(role == 'admin') url = 'http://localhost:3000/test-admin';
-    else if(role == 'guest') url = 'http://localhost:3000/test-guest';
-    else if(role == 'worker') url = 'http://localhost:3000/test-worker';
-
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    this.http.get<any>(url,{ headers }).subscribe({
-      next: (value: any) => {
-        alert('OK='+role);
-      },
-      error: (error: any) => {
-        alert('ERR='+role);
       }
     });
   }

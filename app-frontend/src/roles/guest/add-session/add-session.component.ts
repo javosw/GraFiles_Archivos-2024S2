@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterOutlet } from '@angular/router';
 import { GuestService } from '../../../api/services/guest.service';
-import { DataAddSession } from '../../../data/guest.data';
+import { DataGetSession } from '../../../data/guest.data';
 
 @Component({
   selector: 'gf-add-session',
@@ -25,7 +25,7 @@ export class AddSessionComponent {
     this.flagGetSessionReq = false;
   }
 
-  formGetSession: DataAddSession = { username: '', password: '' }
+  formGetSession: DataGetSession = { username: '', password: '' }
 
   flagGetSessionReq: boolean = false;
   flagGetSessionOk: boolean = false;

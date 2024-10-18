@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DataAddSession } from '../../../data/guest.data';
+import { DataGetSession } from '../../../data/guest.data';
 import { AdminService } from '../../../api/services/admin.service';
 
 @Component({
@@ -13,7 +13,7 @@ export class AddWorkerComponent {
   constructor(private adminService:AdminService){
   }
 
-  form_addUser:DataAddSession = { username:'',password:'' }
+  form_addUser:DataGetSession = { username:'',password:'' }
 
   flag_getUserOk:boolean = false;
   flag_getUserReq:boolean = false;

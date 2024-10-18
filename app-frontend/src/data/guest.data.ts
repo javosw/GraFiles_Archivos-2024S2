@@ -1,4 +1,4 @@
-export type DataAddSession = {
+export type DataGetSession = {
     username:string;
     password:string;
 }

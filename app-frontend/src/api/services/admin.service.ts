@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { apiGuestAddClient, apiGuestGetClient } from '../routes/gf-api.paths';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { DataAddSession } from '../../data/guest.data';
+import { DataGetSession } from '../../data/guest.data';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -23,7 +23,7 @@ export class AdminService {
 
   addClient(username:string,password:string):Observable<any>{
     let url: string = apiGuestAddClient;
-    let form:DataAddSession = {username,password}
+    let form:DataGetSession = {username,password}
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     
     return this.http.post<any>(url, form, {headers});
