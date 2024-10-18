@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import session, { SessionOptions } from 'express-session';
 
 
-const sessionOptions:SessionOptions = {
+const sessionOptions: SessionOptions = {
     secret: 'gf',
     resave: false,
     saveUninitialized: false,
@@ -14,16 +14,13 @@ const sessionOptions:SessionOptions = {
 }
 export let customSession = session(sessionOptions);
 
-type Status = {
-    http: number;
-    at: string;
-}
-
+type Msg = { msg: string; }
+export type Role = 'admin' | 'worker' | 'guest';
 
 declare module "express-session" {
     interface SessionData {
-        username:string;
-        role:string;
+        username: string;
+        role: string;
     }
 }
 
@@ -31,7 +28,7 @@ export const getSession = async (req: Request, res: Response, next: NextFunction
     const username = req.body.username;
     const password = req.body.password;
 
-    let {getUser} = await import('../model/guest.model.js');
+    let { getUser } = await import('../model/guest.model.js');
     const data = await getUser(username, password);
 
     //res.setHeader('Content-Type', 'application/json');
@@ -48,21 +45,21 @@ export const getSession = async (req: Request, res: Response, next: NextFunction
 
 // si tiene algun rol... puede acceder a las rutas...  = mwRolX,mwRutasRolX
 
-export const checkSession = (roles: string[]) => {
-    return (req: Request, res: Response, next: NextFunction):void => {
+export const checkSession = (roles: Role[]) => {
+    return (req: Request, res: Response, next: NextFunction): void => {
 
         if (req.session.role) {
 
-            if(roles.includes(req.session.role)){
+            if (roles.includes(req.session.role as Role)) {
                 return next();
             }
 
-            let status: Status = { http: 403, at: '' };
+            let status: Msg = { msg: '403@checkSession' };
             res.status(403).json(status);
             return;
 
         } else {
-            let status: Status = { http: 401, at: '' };
+            let status: Msg = { msg: '401@checkSession' };
             res.status(401).json(status);
             return;
         }

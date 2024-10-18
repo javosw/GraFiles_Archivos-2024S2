@@ -29,5 +29,5 @@ export class AdminService {
     return this.http.post<any>(url, form, {headers});
 
   }
-
 }
+

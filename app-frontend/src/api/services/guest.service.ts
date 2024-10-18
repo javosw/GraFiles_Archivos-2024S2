@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { apiGuestAddSesion } from '../routes/gf-api.paths';
-import { DataAddSession, DataSession } from '../../data/guest.data';
+import { DataAddSession, DataSession, Role } from '../../data/guest.data';
 import { pathAdminBoard, pathWorkerBoard } from '../../meta/app.paths';
 
 @Injectable({
@@ -40,4 +40,22 @@ export class GuestService {
     });
   }
 
+  testSession(role: Role | null) {
+    let url:string = '';
+    if(!role) url = 'http://localhost:3000/test-roles';
+    else if(role == 'admin') url = 'http://localhost:3000/test-admin';
+    else if(role == 'guest') url = 'http://localhost:3000/test-guest';
+    else if(role == 'worker') url = 'http://localhost:3000/test-worker';
+
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    this.http.get<any>(url,{ headers }).subscribe({
+      next: (value: any) => {
+        alert('OK='+role);
+      },
+      error: (error: any) => {
+        alert('ERR='+role);
+      }
+    });
+  }
 }
+

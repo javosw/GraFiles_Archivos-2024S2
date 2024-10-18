@@ -1,1 +1,7 @@
-<p>board works!</p>
+<div class="container">
+    <button (click)="testSession('guest')" class="btn btn-sm btn-outline-primary">guest</button>
+    <button (click)="testSession('admin')" class="btn btn-sm btn-outline-primary">admin</button>
+    <button (click)="testSession('worker')" class="btn btn-sm btn-outline-primary">worker</button>   
+    <button (click)="testSession(null)" class="btn btn-sm btn-outline-primary">null</button>    
+</div>
+

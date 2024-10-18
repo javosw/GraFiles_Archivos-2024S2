@@ -32,12 +32,12 @@ export const checkSession = (roles) => {
             if (roles.includes(req.session.role)) {
                 return next();
             }
-            let status = { http: 403, at: '' };
+            let status = { msg: '403@checkSession' };
             res.status(403).json(status);
             return;
         }
         else {
-            let status = { http: 401, at: '' };
+            let status = { msg: '401@checkSession' };
             res.status(401).json(status);
             return;
         }

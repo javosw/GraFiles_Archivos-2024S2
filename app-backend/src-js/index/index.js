@@ -18,11 +18,17 @@ app.post('/get-session', express.json(), getSession);
 // ========================================================
 // ========================================================
 const { checkSession } = await import('../middle/guest.mw.js');
-app.post('/admin', checkSession(['admin']), (req, res) => {
+app.get('/test-admin', checkSession(['admin']), (req, res) => {
     res.json({ josq: 'admin' });
 });
-app.post('/worker', checkSession(['worker']), (req, res) => {
+app.get('/test-worker', checkSession(['worker']), (req, res) => {
     res.json({ josq: 'worker' });
+});
+app.get('/test-roles', checkSession(['worker', 'admin']), (req, res) => {
+    res.json({ josq: 'roles' });
+});
+app.get('/test-guest', (req, res) => {
+    res.status(401).json({ josq: 'guest' });
 });
 // ========================================================
 app.get('/', (req, res) => {
