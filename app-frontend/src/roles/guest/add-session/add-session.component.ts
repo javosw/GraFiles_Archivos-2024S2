@@ -1,32 +1,38 @@
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { GuestService } from '../../../api/services/guest.service';
 import { DataAddSession } from '../../../data/guest.data';
 
 @Component({
   selector: 'gf-add-session',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [RouterOutlet, FormsModule, ReactiveFormsModule],
   templateUrl: './add-session.component.html',
 })
 export class AddSessionComponent {
-  constructor(private guestService:GuestService, private router:Router){
-    this.guestService.flag_hasSession.subscribe((val)=>{this.flag_addSessionOk = val;});
+
+  constructor(private guestService: GuestService) {
+    this.guestService.hasSession.subscribe({
+      next: (value: boolean) => {
+        this.flagGetSessionOk = value;
+        this.flagGetSessionReq = true;
+      },
+      error: (err: any) => {
+        this.flagGetSessionReq = true;
+      }
+    });
+    this.flagGetSessionReq = false;
   }
 
-  form_addUser:DataAddSession = { username:'',password:'' }
+  formGetSession: DataAddSession = { username: '', password: '' }
 
-  flag_addSessionReq: boolean = false;
-  flag_addSessionOk: boolean = false;
+  flagGetSessionReq: boolean = false;
+  flagGetSessionOk: boolean = false;
 
-  addSession(){
-
-    this.flag_addSessionReq = false;
-    //this.flag_addSessionOk esta manejada por GuestService
-    this.guestService.addSession(this.form_addUser);
-    this.flag_addSessionReq = true;
-
+  getSession() {
+    this.flagGetSessionReq = false;
+    this.guestService.getSession(this.formGetSession);
   }
 
 }

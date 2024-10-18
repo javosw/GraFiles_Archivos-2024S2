@@ -4,19 +4,19 @@
     <div class="container mb-3">
         <div class="row mb-3">
             <label class="col-12 col-md-2">Usuario</label>
-            <input [(ngModel)]="form_addUser.username" class="col form-control bg-secondary-subtle" />
+            <input [(ngModel)]="formGetSession.username" class="col form-control bg-secondary-subtle" />
         </div>
         <div class="row mb-3">
             <label class="col-12 col-md-2">Contraseña</label>
-            <input [(ngModel)]="form_addUser.password" class="col form-control bg-secondary-subtle" />
+            <input [(ngModel)]="formGetSession.password" class="col form-control bg-secondary-subtle" />
         </div>
     </div>
     <div class="d-flex justify-content-end">
-        <button (click)="addSession()" class="btn btn-sm btn-outline-primary">ENTRAR</button>
+        <button (click)="getSession()" class="btn btn-sm btn-outline-primary">ENTRAR</button>
     </div>
 
     <hr />
-    @if (flag_addSessionReq && !flag_addSessionOk) {
+    @if (flagGetSessionReq && !flagGetSessionOk) {
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
         La sesion no pudo ser creada. <u class="alert-link">Intentelo de nuevo</u>.
     </div>

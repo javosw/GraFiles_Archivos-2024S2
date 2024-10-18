@@ -11,19 +11,19 @@ import { pathAdminBoard, pathWorkerBoard } from '../../meta/app.paths';
 })
 export class GuestService {
 
-  flag_hasSession: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  hasSession: BehaviorSubject<boolean> = new BehaviorSubject(false);
   dataSession: DataSession = { username: '', role: '' };
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  addSession(form: DataAddSession): void {
+  getSession(form: DataAddSession): void {
     let url: string = apiGuestAddSesion;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     this.http.post<DataSession>(url, form, { headers }).subscribe({
       next: (value: DataSession) => {
 
         this.dataSession = value;
-        this.flag_hasSession.next(true);
+        this.hasSession.next(true);
 
         if (value.role == 'worker') {
           this.router.navigate([pathWorkerBoard]);
@@ -35,7 +35,7 @@ export class GuestService {
       complete: () => {
       },
       error: (error) => {
-        this.flag_hasSession.next(false);
+        this.hasSession.next(false);
       }
     });
   }
