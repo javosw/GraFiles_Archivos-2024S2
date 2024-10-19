@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { apiGuestAddSesion } from '../routes/gf-api.paths';
-import { DataGetSession, DataSession, Role } from '../../data/guest.data';
+import { DataGetSession, DataGetSessionOk, Role } from '../../data/guest.data';
 import { pathAdminBoard, pathWorkerBoard } from '../../meta/app.paths';
 
 @Injectable({
@@ -12,15 +12,15 @@ import { pathAdminBoard, pathWorkerBoard } from '../../meta/app.paths';
 export class GuestService {
 
   hasSession: BehaviorSubject<boolean> = new BehaviorSubject(false);
-  dataSession: DataSession = { username: '', role: '' };
+  dataSession: DataGetSessionOk = { username: '', role: '' };
 
   constructor(private http: HttpClient, private router: Router) { }
 
   getSession(form: DataGetSession): void {
     let url: string = apiGuestAddSesion;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    this.http.post<DataSession>(url, form, { headers }).subscribe({
-      next: (value: DataSession) => {
+    this.http.post<DataGetSessionOk>(url, form, { headers }).subscribe({
+      next: (value: DataGetSessionOk) => {
 
         this.dataSession = value;
         this.hasSession.next(true);

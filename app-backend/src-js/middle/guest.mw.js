@@ -10,22 +10,6 @@ const sessionOptions = {
     }
 };
 export let customSession = session(sessionOptions);
-export const getSession = async (req, res, next) => {
-    const username = req.body.username;
-    const password = req.body.password;
-    let { getUser } = await import('../model/guest.model.js');
-    const data = await getUser(username, password);
-    //res.setHeader('Content-Type', 'application/json');
-    if (data) {
-        req.session.username = username;
-        req.session.role = data.role;
-        res.status(200).json(data);
-    }
-    else {
-        res.status(401).send();
-    }
-};
-// si tiene algun rol... puede acceder a las rutas...  = mwRolX,mwRutasRolX
 export const checkSession = (roles) => {
     return (req, res, next) => {
         if (req.session.role) {
@@ -42,4 +26,16 @@ export const checkSession = (roles) => {
             return;
         }
     };
+};
+export const getSession = async (req, res, next) => {
+    const { getUser } = await import('../model/guest.model.js');
+    const data = await getUser(req.body);
+    if (data) {
+        req.session.username = data.username;
+        req.session.role = data.role;
+        res.status(200).json(data);
+    }
+    else {
+        res.status(401).send();
+    }
 };
