@@ -1,7 +1,9 @@
+fecha: 2024octubre31 13.00
 
 GraFiles
 	sistema de archivos web
 	usuario final: empleados de la empresa
+
 vistas
 	login
 		form: {username;password}
@@ -9,44 +11,48 @@ vistas
 roles
 	empleado
 		get/add/del/mod archivo
-		mod password
+		(?) mod password
 	administrador extends empleado
 		add empleado
-		get papeleria (historial de archivos eliminados)
+		papeleria (historial de archivos eliminados)
 sistema de archivos
-	directorios principales
+	carpetas iniciales
 		root: para archivos privados
 		shared: para archivos publicos
-	se prohibe la transferencia de archivos root <-> shared
-	extensiones de archivos permitidas: txt html png jpg
-	para directorio root
-		add archivo de texto
+	restricciones
+		se prohibe la transferencia de archivos root <-> shared
+	para carpeta root
+		add carpeta
+			set nombre
+		add texto
+			extensiones permitidas: txt html
 			form: {nombre,extension (txt,html)}
 			editor de texto con boton guardar
-		mod archivo de texto
-			editor de texto con boton guardar
-		add directorio
-			set nombre
-		copy archivo/directorio
-			desde directorio actual hacia directorio actual
-		cut archivo/directorio
-			desde directorio actual hacia otro directorio
-		del archivo/directorio
-			cut desde directorio actual hacia <<papeleria>>
-			cada archivo/directorio en papeleria ya no es visible para el usuario
-		share <<archivo>>
-			form: {username}
-			copy desde <<directorio actual>> hacia <<directorio shared>> del username 
 		add imagen
-		mod imagen
-			reemplazar imagen actual
-	para directorio shared
-		view <<archivos>>
+			extensiones permitidas: png jpg
+		para cada archivo
+			share <<archivo>>
+				form: {username}
+				copy desde <<carpeta actual>> hacia <<carpeta shared>> del username 
+			(?) mod texto
+				editor de texto con boton guardar
+			(?) mod imagen
+				reemplazar imagen actual
+		para cada archivo/carpeta
+			del
+				cut desde carpeta actual hacia <<papeleria>>
+				cada archivo/carpeta en papeleria ya no es visible para el usuario
+			(?) copy
+				desde carpeta actual hacia <<carpeta actual>>
+			(?) move
+				desde carpeta actual hacia <<otra carpeta>>
+	para carpeta shared
+		get <<archivos>>
 			nombre & extension
 			username
 			fecha & hora
 		open <<archivo>>
-		del <<archivo>>
+		(?) del <<archivo>>
 
 
 
