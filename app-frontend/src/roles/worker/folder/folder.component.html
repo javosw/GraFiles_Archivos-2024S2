@@ -1,1 +1,33 @@
-<p>folder works!</p>
+<!--
+<div class="d-flex justify-content-between">
+</div>
+-->
+
+<div class="container">
+    <button (click)="flagShowContent = !flagShowContent" class="btn btn-sm btn-outline-light">
+        <img src="caret-down.svg" width="32" height="32">
+    </button>
+    <div class="dropdown">
+        <button class="btn btn-sm btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="three-dots.svg" width="32" height="32">
+        </button>
+        <ul class="dropdown-menu">
+            <li><button class="dropdown-item" type="button">agregar carpeta</button></li>
+            <li><button class="dropdown-item" type="button">agregar texto</button></li>
+            <li><button class="dropdown-item" type="button">agregar imagen</button></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><button class="dropdown-item" type="button">copiar</button></li>
+            <li><button class="dropdown-item" type="button">mover</button></li>
+            <li><button class="dropdown-item" type="button">eliminar</button></li>
+        </ul>
+    </div>    
+    {{dataFolder?.name}}
+</div>
+
+@if(flagShowContent){
+<ul>
+    @for (folder of dataFolder?.folders; track folder) {
+    <li><gf-folder [_id]="folder"></gf-folder></li>
+    }
+</ul>
+}

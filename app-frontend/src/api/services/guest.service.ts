@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+//
 import { apiGuestAddSesion } from '../routes/gf-api.paths';
-import { DataGetSession, DataGetSessionOk, Role } from '../../data/guest.data';
+import { ModelGetSession, ModelGetSessionOk, ModelRole } from '../../model/guest.model';
 import { pathAdminBoard, pathWorkerBoard } from '../../meta/app.paths';
 
 @Injectable({
@@ -12,18 +13,17 @@ import { pathAdminBoard, pathWorkerBoard } from '../../meta/app.paths';
 export class GuestService {
 
   hasSession: BehaviorSubject<boolean> = new BehaviorSubject(false);
-  dataSession: DataGetSessionOk = { username: '', role: '' };
+  dataGetSessionOk = new BehaviorSubject<ModelGetSessionOk | null>(null);
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  getSession(form: DataGetSession): void {
+  getSession(form: ModelGetSession): void {
     let url: string = apiGuestAddSesion;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    this.http.post<DataGetSessionOk>(url, form, { headers }).subscribe({
-      next: (value: DataGetSessionOk) => {
-
-        this.dataSession = value;
+    this.http.post<ModelGetSessionOk>(url, form, { headers }).subscribe({
+      next: (value: ModelGetSessionOk) => {
         this.hasSession.next(true);
+        this.dataGetSessionOk.next(value);
 
         if (value.role == 'worker') {
           this.router.navigate([pathWorkerBoard]);
@@ -32,10 +32,9 @@ export class GuestService {
           this.router.navigate([pathAdminBoard]);
         }
       },
-      complete: () => {
-      },
       error: (error) => {
         this.hasSession.next(false);
+        this.dataGetSessionOk.next(null);
       }
     });
   }
