@@ -1,5 +1,6 @@
 import express, { Express, Request, Response, Application } from 'express';
 import cors, { CorsOptions } from 'cors';
+import { checkSession } from '../middle/guest.mw.js';
 
 const app: Express = express();
 
@@ -11,6 +12,7 @@ const corsOptions: CorsOptions = {
 };
 const customCors = cors(corsOptions);
 app.use(customCors);
+app.use(express.json());
 
 // ========================================================
 
@@ -20,7 +22,12 @@ app.use(customSession);
 // ========================================================
 
 const { getSession } = await import('../middle/guest.mw.js');
-app.post('/get-session', express.json(), getSession);
+app.post('/session/get', getSession);
+
+// ========================================================
+
+const { getFolder } = await import('../middle/worker.mw.js');
+app.post('/folders/get', checkSession(['admin', 'worker']), getFolder);
 
 // ========================================================
 
