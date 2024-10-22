@@ -31,13 +31,13 @@ export class FolderComponent {
     this.workerService.addFolder({ ancestor: this._id, name: this.dataAddFolder.name }).subscribe({
       next: (value: { _id: string }) => {
         this.dataFolder?.folders.push(value._id);
+        this.flagShowContent = true;
       },
       error: () => { }
     })
   }
   addFile() { }
 
-  flagAddFolder: boolean = false;
 
   /*
 ObjectId(inputId: string): ObjectId
@@ -55,5 +55,31 @@ Converts the id into a 24 character hex string for printing, unless encoding is 
       error: () => {
       }
     });
+  }
+  flagAddFolder: boolean = false;
+  flagAddImage: boolean = false;
+  flagAddText: boolean = false;
+  flagDelete: boolean = false;
+
+  actions(button: 'show-content' | 'add-folder' | 'add-image' | 'add-text' | 'copy' | 'move' | 'delete') {
+    if (button == 'show-content') {
+      this.flagShowContent = !this.flagShowContent
+    }
+    else if (button == 'add-folder') {
+      this.flagAddFolder = !this.flagAddFolder
+    }
+    else if (button == 'add-image') {
+      this.flagAddImage = !this.flagAddImage;
+    }
+    else if (button == 'add-text') {
+      this.flagAddText = !this.flagAddText;
+    }
+    else if (button == 'copy') {
+    }
+    else if (button == 'move') { }
+    else if (button == 'delete') {
+      this.flagDelete = !this.flagDelete;
+    }
+
   }
 }

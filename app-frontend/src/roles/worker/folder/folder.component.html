@@ -3,33 +3,63 @@
 </div>
 -->
 
-<div class="border folder">
+<div class="border-start folder">
     <div class="btn-group me-3">
-        <button (click)="flagShowContent = !flagShowContent" class="btn btn-sm btn-outline-light">VER</button>
+        <button (click)="actions('show-content')" class="btn btn-sm btn-outline-light">VER</button>
         <div class="btn-group">
             <button class="btn btn-sm btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                aria-expanded="false"></button>
+                aria-expanded="false">
+            </button>
             <ul class="dropdown-menu">
-                <li><button (click)="flagAddFolder = !flagAddFolder" class="dropdown-item" type="button">agregar
-                        carpeta</button></li>
-                <li><button class="dropdown-item" type="button">agregar texto</button></li>
-                <li><button class="dropdown-item" type="button">agregar imagen</button></li>
+                <li>
+                    <button (click)="actions('add-folder')" class="dropdown-item" type="button">
+                        agregar carpeta
+                    </button>
+                </li>
+                <li>
+                    <button (click)="actions('add-text')" class="dropdown-item" type="button">
+                        agregar texto
+                    </button>
+                </li>
+                <li>
+                    <button class="dropdown-item" type="button">
+                        agregar imagen
+                    </button>
+                </li>
                 <li>
                     <hr class="dropdown-divider">
                 </li>
-                <li><button class="dropdown-item" type="button">copiar</button></li>
-                <li><button class="dropdown-item" type="button">mover</button></li>
-                <li><button class="dropdown-item" type="button">eliminar</button></li>
+                <li>
+                    <button class="dropdown-item" type="button">copiar</button>
+                </li>
+                <li>
+                    <button class="dropdown-item" type="button">mover</button>
+                </li>
+                <li>
+                    <button (click)="actions('delete')" class="dropdown-item" type="button">
+                        eliminar
+                    </button>
+                </li>
             </ul>
         </div>
     </div>
-    <span class="align-middle">{{dataFolder?.name}}</span>
+    <span class="align-middle border-bottom">{{dataFolder?.name}}</span>
     @if(flagAddFolder){
-    <div class="d-flex p-1">
-        <span class="align-self-center me-1">Carpeta</span>
-        <input [(ngModel)]="dataAddFolder.name" class="flex-grow-1 me-1 bg-secondary-subtle form-control" />
-        <button (click)="addFolder()" class="btn btn-outline-light btn-sm" type="button">AGREGAR</button>
+    <div class="input-group input-group-sm">
+        <input type="text" [(ngModel)]="dataAddFolder.name" class="form-control form-control-sm"
+            placeholder="nombre para la carpeta" aria-describedby="flagAddFolder">
+        <!--span  class="input-group-text" id="flagAddFolder">AGREGAR CARPETA</span-->
+        <button (click)="addFolder()" class="btn btn-outline-secondary" type="button" id="flagAddFolder">
+            AGREGAR CARPETA
+        </button>
     </div>
+    }
+    @if(flagAddText){
+    <div class="input-group input-group-sm">
+        <input type="file" class="form-control form-control-sm" aria-describedby="flagAddText" aria-label="Upload">
+        <button type="button" class="btn btn-outline-secondary" id="flagAddText">AGREGAR ARCHIVO</button>
+    </div>
+    <!--textarea class="form-control" placeholder="" id="floatingTextarea"></textarea-->
     }
 
     @if(flagShowContent){
