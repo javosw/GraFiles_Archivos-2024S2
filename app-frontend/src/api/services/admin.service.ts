@@ -14,7 +14,6 @@ export class AdminService {
 
   constructor(private http: HttpClient, private router: Router) { }
 
-
   getClient(username: string): Observable<any> {
     let form = { username };
     let url: string = apiGuestGetWorker;

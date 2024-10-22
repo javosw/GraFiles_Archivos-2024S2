@@ -1,4 +1,4 @@
 <div class="container">
     <h1>WorkerBoard</h1>
-    <gf-folder [_id]="dataGetSessionOk? dataGetSessionOk.folderRoot : ''" ></gf-folder>
+    <gf-folder [_id]="dataGetSessionOk?.folderRoot || ''"></gf-folder>
 </div>

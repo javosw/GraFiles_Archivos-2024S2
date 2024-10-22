@@ -8,11 +8,12 @@ import { ModelFolder } from '../../../model/worker.model';
   standalone: true,
   imports: [],
   templateUrl: './folder.component.html',
+  styles: `.folder { width: 500px; }`
 })
 export class FolderComponent {
   constructor(private workerService: WorkerService) { }
 
-  ngOnInit() { }
+  ngOnInit() { this.getFolder(); }
 
   @Input() _id: string = '';
   dataFolder: ModelFolder | null = null;

@@ -3,25 +3,25 @@
 </div>
 -->
 
-<div class="container">
-    <button (click)="flagShowContent = !flagShowContent" class="btn btn-sm btn-outline-light">
-        <img src="caret-down.svg" width="32" height="32">
-    </button>
-    <div class="dropdown">
-        <button class="btn btn-sm btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="three-dots.svg" width="32" height="32">
-        </button>
-        <ul class="dropdown-menu">
-            <li><button class="dropdown-item" type="button">agregar carpeta</button></li>
-            <li><button class="dropdown-item" type="button">agregar texto</button></li>
-            <li><button class="dropdown-item" type="button">agregar imagen</button></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><button class="dropdown-item" type="button">copiar</button></li>
-            <li><button class="dropdown-item" type="button">mover</button></li>
-            <li><button class="dropdown-item" type="button">eliminar</button></li>
-        </ul>
-    </div>    
-    {{dataFolder?.name}}
+<div class="border folder">
+    <div class="btn-group me-3">
+        <button (click)="flagShowContent = !flagShowContent" class="btn btn-sm btn-outline-light">VER</button>
+        <div class="btn-group">
+            <button class="btn btn-sm btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
+            <ul class="dropdown-menu">
+                <li><button class="dropdown-item" type="button">agregar carpeta</button></li>
+                <li><button class="dropdown-item" type="button">agregar texto</button></li>
+                <li><button class="dropdown-item" type="button">agregar imagen</button></li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+                <li><button class="dropdown-item" type="button">copiar</button></li>
+                <li><button class="dropdown-item" type="button">mover</button></li>
+                <li><button class="dropdown-item" type="button">eliminar</button></li>
+            </ul>
+        </div>    
+    </div>
+    <span class="col">{{dataFolder?.name}}</span>
 </div>
 
 @if(flagShowContent){
