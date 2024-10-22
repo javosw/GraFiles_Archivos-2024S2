@@ -31,6 +31,11 @@ app.post('/folders/get', checkSession(['admin', 'worker']), getFolder);
 
 // ========================================================
 
+const { addFolder } = await import('../middle/worker.mw.js');
+app.post('/folders/add', checkSession(['admin', 'worker']), addFolder);
+
+// ========================================================
+
 app.get('/', (req: Request, res: Response) => {
     res.send('Welcome to Express & TypeScript Server');
 });

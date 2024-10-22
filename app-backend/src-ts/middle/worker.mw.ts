@@ -25,5 +25,24 @@ export async function getFolder(req: Request, res: Response, next: NextFunction)
     else {
         res.status(401).send();
     }
+}
+
+
+export async function addFolder(req: Request, res: Response, next: NextFunction) {
+    const { addFolder } = await import('../data/worker.data.js');
+    let bodyReq = req.body as { ancestor: string, name: string };
+    const data = await addFolder({ ancestor: new ObjectId(bodyReq.ancestor), name: bodyReq.name });
+
+    if (data) {
+
+        let bodyRes = {
+            _id: data.toString()
+        }
+
+        res.status(200).json(bodyRes);
+    }
+    else {
+        res.status(401).send();
+    }
 
 }

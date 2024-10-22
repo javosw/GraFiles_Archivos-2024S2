@@ -7,9 +7,11 @@
     <div class="btn-group me-3">
         <button (click)="flagShowContent = !flagShowContent" class="btn btn-sm btn-outline-light">VER</button>
         <div class="btn-group">
-            <button class="btn btn-sm btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
+            <button class="btn btn-sm btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                aria-expanded="false"></button>
             <ul class="dropdown-menu">
-                <li><button class="dropdown-item" type="button">agregar carpeta</button></li>
+                <li><button (click)="flagAddFolder = !flagAddFolder" class="dropdown-item" type="button">agregar
+                        carpeta</button></li>
                 <li><button class="dropdown-item" type="button">agregar texto</button></li>
                 <li><button class="dropdown-item" type="button">agregar imagen</button></li>
                 <li>
@@ -19,15 +21,22 @@
                 <li><button class="dropdown-item" type="button">mover</button></li>
                 <li><button class="dropdown-item" type="button">eliminar</button></li>
             </ul>
-        </div>    
+        </div>
     </div>
-    <span class="col">{{dataFolder?.name}}</span>
-</div>
-
-@if(flagShowContent){
-<ul>
-    @for (folder of dataFolder?.folders; track folder) {
-    <li><gf-folder [_id]="folder"></gf-folder></li>
+    <span class="align-middle">{{dataFolder?.name}}</span>
+    @if(flagAddFolder){
+    <div class="d-flex p-1">
+        <span class="align-self-center me-1">Carpeta</span>
+        <input [(ngModel)]="dataAddFolder.name" class="flex-grow-1 me-1 bg-secondary-subtle form-control" />
+        <button (click)="addFolder()" class="btn btn-outline-light btn-sm" type="button">AGREGAR</button>
+    </div>
     }
-</ul>
-}
+
+    @if(flagShowContent){
+    <ul>
+        @for (folder of dataFolder?.folders; track folder) {
+        <li><gf-folder [_id]="folder"></gf-folder></li>
+        }
+    </ul>
+    }
+</div>

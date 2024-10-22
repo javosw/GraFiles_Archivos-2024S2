@@ -14,12 +14,11 @@ export class WorkerService {
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  addFolder(body: { ancestor: string; name: string }): Observable<string> {
+  addFolder(body: { ancestor: string, name: string }): Observable<{ _id: string }> {
     let url: string = apiWorkerAddFolder;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-    return this.http.post<string>(url, body, { headers });
-
+    return this.http.post<{ _id: string }>(url, body, { headers });
   }
 
   getFolder(body: { _id: string }): Observable<ModelFolder> {
