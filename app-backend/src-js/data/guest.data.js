@@ -1,18 +1,18 @@
-export async function getUser(data) {
-    const { CustomMongoClient } = await import('./CustomMongoClient.js');
+export async function getUser(db, data) {
+    //const { CustomMongoClient } = await import('./CustomMongoClient.js');
     try {
-        await CustomMongoClient.connect();
-        const collection = CustomMongoClient.db("gf").collection("users");
+        const collection = db.collection('users');
         const doc = await collection.findOne(data);
         if (doc) {
-            await CustomMongoClient.close();
+            //await CustomMongoClient.close();
             return doc;
         }
     }
     catch (error) {
+        console.log({ msg: '@getUser.data' });
     }
     finally {
-        await CustomMongoClient.close();
+        //await CustomMongoClient.close();
     }
     return null;
 }

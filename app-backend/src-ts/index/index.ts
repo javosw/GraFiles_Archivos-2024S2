@@ -1,6 +1,8 @@
 import express, { Express, Request, Response, Application } from 'express';
 import cors, { CorsOptions } from 'cors';
 import { checkSession } from '../middle/guest.mw.js';
+import { requestWithDb } from '../middle/db.mw.js';
+import { mongoClient } from '../data/db.js';
 
 const app: Express = express();
 
@@ -13,6 +15,7 @@ const corsOptions: CorsOptions = {
 const customCors = cors(corsOptions);
 app.use(customCors);
 app.use(express.json());
+app.use(requestWithDb);
 
 // ========================================================
 
@@ -47,3 +50,14 @@ const PORT = 3000;
 app.listen(PORT, () => {
     console.log(`[express] http://localhost:${PORT}`);
 })
+
+const listener: NodeJS.SignalsListener = async (signal: NodeJS.Signals) => {
+    if (mongoClient) {
+        await mongoClient.close();
+    }
+    console.log('[mongodb] MongoClient.close()');
+    process.exit(0);
+}
+
+process.on('SIGINT', listener);
+process.on('SIGTERM', listener);
