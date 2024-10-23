@@ -4,7 +4,7 @@ import { ObjectId } from "mongodb";
 export async function getFolder(req: Request, res: Response, next: NextFunction) {
     const { getFolder } = await import('../data/worker.data.js');
     let bodyReq = req.body as { _id: string };
-    const data = await getFolder({ _id: new ObjectId(bodyReq._id) });
+    const data = await getFolder(req.db, { _id: new ObjectId(bodyReq._id) });
 
     if (data) {
         let folders: string[] = [];
@@ -31,14 +31,12 @@ export async function getFolder(req: Request, res: Response, next: NextFunction)
 export async function addFolder(req: Request, res: Response, next: NextFunction) {
     const { addFolder } = await import('../data/worker.data.js');
     let bodyReq = req.body as { ancestor: string, name: string };
-    const data = await addFolder({ ancestor: new ObjectId(bodyReq.ancestor), name: bodyReq.name });
+    const data = await addFolder(req.db, { ancestor: new ObjectId(bodyReq.ancestor), name: bodyReq.name });
 
     if (data) {
-
         let bodyRes = {
             _id: data.toString()
         }
-
         res.status(200).json(bodyRes);
     }
     else {

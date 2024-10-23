@@ -1,31 +1,22 @@
-import { ObjectId, PushOperator } from 'mongodb';
+import { Db, ObjectId } from 'mongodb';
 import { ModelFolder } from '../model/worker.model.js';
 
-export async function getFolder(data: { _id: ObjectId }): Promise<ModelFolder | null> {
-    const { CustomMongoClient } = await import('./CustomMongoClient.js');
-
+export async function getFolder(db: Db, data: { _id: ObjectId }): Promise<ModelFolder | null> {
     try {
-        await CustomMongoClient.connect();
-        const collection = CustomMongoClient.db("gf").collection("folders");
+        const collection = db.collection("folders");
         const doc = await collection.findOne(data);
         if (doc) {
-            await CustomMongoClient.close();
             return doc as ModelFolder;
         }
     } catch (error) {
     }
     finally {
-        await CustomMongoClient.close();
     }
     return null;
 }
 
-export async function addFolder(filter: { ancestor: ObjectId, name: string }): Promise<ObjectId | null> {
-    const { CustomMongoClient } = await import('./CustomMongoClient.js');
-
+export async function addFolder(db: Db, filter: { ancestor: ObjectId, name: string }): Promise<ObjectId | null> {
     try {
-        await CustomMongoClient.connect();
-        const db = CustomMongoClient.db("gf");
         const foldersGet = db.collection<ModelFolder>("folders");
 
         const getAncestor = await foldersGet.findOne({ _id: filter.ancestor });
@@ -47,12 +38,10 @@ export async function addFolder(filter: { ancestor: ObjectId, name: string }): P
 
         await foldersGet.updateOne({ _id: ancestor._id }, { $push: { folders: descendant._id } });
 
-        await CustomMongoClient.close();
         return descendant._id;
     } catch (error) {
     }
     finally {
-        await CustomMongoClient.close();
     }
     return null;
 }

@@ -2,7 +2,7 @@ import { ObjectId } from "mongodb";
 export async function getFolder(req, res, next) {
     const { getFolder } = await import('../data/worker.data.js');
     let bodyReq = req.body;
-    const data = await getFolder({ _id: new ObjectId(bodyReq._id) });
+    const data = await getFolder(req.db, { _id: new ObjectId(bodyReq._id) });
     if (data) {
         let folders = [];
         data.folders.forEach((folder) => { folders.push(folder.toString()); });
@@ -24,7 +24,7 @@ export async function getFolder(req, res, next) {
 export async function addFolder(req, res, next) {
     const { addFolder } = await import('../data/worker.data.js');
     let bodyReq = req.body;
-    const data = await addFolder({ ancestor: new ObjectId(bodyReq.ancestor), name: bodyReq.name });
+    const data = await addFolder(req.db, { ancestor: new ObjectId(bodyReq.ancestor), name: bodyReq.name });
     if (data) {
         let bodyRes = {
             _id: data.toString()

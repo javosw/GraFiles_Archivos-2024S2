@@ -1,26 +1,19 @@
-export async function getFolder(data) {
-    const { CustomMongoClient } = await import('./CustomMongoClient.js');
+export async function getFolder(db, data) {
     try {
-        await CustomMongoClient.connect();
-        const collection = CustomMongoClient.db("gf").collection("folders");
+        const collection = db.collection("folders");
         const doc = await collection.findOne(data);
         if (doc) {
-            await CustomMongoClient.close();
             return doc;
         }
     }
     catch (error) {
     }
     finally {
-        await CustomMongoClient.close();
     }
     return null;
 }
-export async function addFolder(filter) {
-    const { CustomMongoClient } = await import('./CustomMongoClient.js');
+export async function addFolder(db, filter) {
     try {
-        await CustomMongoClient.connect();
-        const db = CustomMongoClient.db("gf");
         const foldersGet = db.collection("folders");
         const getAncestor = await foldersGet.findOne({ _id: filter.ancestor });
         if (!getAncestor) {
@@ -40,13 +33,11 @@ export async function addFolder(filter) {
         }
         const descendant = getDescendant;
         await foldersGet.updateOne({ _id: ancestor._id }, { $push: { folders: descendant._id } });
-        await CustomMongoClient.close();
         return descendant._id;
     }
     catch (error) {
     }
     finally {
-        await CustomMongoClient.close();
     }
     return null;
 }
