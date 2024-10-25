@@ -3,6 +3,7 @@ import cors from 'cors';
 import { checkSession } from '../middle/guest.mw.js';
 import { requestWithDb } from '../middle/db.mw.js';
 import { mongoClient } from '../data/db.js';
+import multer from 'multer';
 const app = express();
 // ========================================================
 const corsOptions = {
@@ -13,7 +14,6 @@ const customCors = cors(corsOptions);
 app.use(customCors);
 app.use(express.json());
 app.use(requestWithDb);
-// ========================================================
 const { customSession } = await import('../middle/guest.mw.js');
 app.use(customSession);
 // ========================================================
@@ -25,6 +25,13 @@ app.post('/folders/get', checkSession(['admin', 'worker']), getFolder);
 // ========================================================
 const { addFolder } = await import('../middle/worker.mw.js');
 app.post('/folders/add', checkSession(['admin', 'worker']), addFolder);
+// ========================================================
+const multerOptions = {
+    dest: 'uploads/'
+};
+const upload = multer(multerOptions);
+import { addFile } from '../middle/worker.mw.js';
+app.post('/files/add', checkSession(['admin', 'worker']), upload.single('file'), addFile);
 // ========================================================
 app.get('/', (req, res) => {
     res.send('Welcome to Express & TypeScript Server');

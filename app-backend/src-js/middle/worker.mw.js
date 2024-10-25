@@ -1,4 +1,5 @@
 import { ObjectId } from "mongodb";
+import { modelMsg } from "../model/guest.model.js";
 export async function getFolder(req, res, next) {
     const { getFolder } = await import('../data/worker.data.js');
     let bodyReq = req.body;
@@ -18,7 +19,8 @@ export async function getFolder(req, res, next) {
         res.status(200).json(bodyRes);
     }
     else {
-        res.status(401).send();
+        res.status(401).json(modelMsg('401@getFolder'));
+        return;
     }
 }
 export async function addFolder(req, res, next) {
@@ -32,6 +34,12 @@ export async function addFolder(req, res, next) {
         res.status(200).json(bodyRes);
     }
     else {
-        res.status(401).send();
+        res.status(401).json(modelMsg('401@addFolder'));
+        return;
     }
+}
+export async function addFile(req, res, next) {
+    console.log(req.files);
+    res.status(200).json(modelMsg('200@addFile'));
+    return;
 }
