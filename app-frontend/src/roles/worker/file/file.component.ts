@@ -22,12 +22,19 @@ export class FileComponent {
     this.workerService.getFile({ _id: this._id }).subscribe({
       next: (value: ModelFile) => {
         this.modelFile = value;
+        if(value.mimetype == 'image/png' || value.mimetype == 'image/jpeg'){
+          this.flagIcon = 'image';
+        }
+        else if(value.mimetype == 'text/plain' || value.mimetype == 'text/html'){
+          this.flagIcon = 'text';
+        }
       },
       error: () => {
       }
     });
   }
 
+  flagIcon: 'image' | 'text' | null = null;
   flagShowContent: boolean = false;
   flagShowOperations: boolean = false;
   flagDelete: boolean = false;
