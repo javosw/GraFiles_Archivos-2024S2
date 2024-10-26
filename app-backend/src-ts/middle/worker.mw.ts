@@ -48,7 +48,9 @@ export async function addFolder(req: Request, res: Response, next: NextFunction)
 }
 
 export async function addFile(req: Request, res: Response, next: NextFunction) {
-    console.log(req.files);
+    console.log(req.file);
+    console.log(req.body)
+    console.log(req.body.ancestor)
     res.status(200).json(modelMsg('200@addFile'));
     return;
 }
