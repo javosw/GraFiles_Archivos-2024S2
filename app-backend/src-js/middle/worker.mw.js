@@ -38,10 +38,36 @@ export async function addFolder(req, res, next) {
         return;
     }
 }
+export async function getFile(req, res, next) {
+    const { getFile } = await import('../data/worker.data.js');
+    let bodyReq = req.body;
+    const data = await getFile(req.db, { _id: new ObjectId(bodyReq._id) });
+    if (data) {
+        let bodyRes = {
+            _id: data._id.toString(),
+            ancestor: data.ancestor.toString(),
+            originalname: data.file.originalname,
+            mimetype: data.file.mimetype,
+            path: data.file.path
+        };
+        res.status(200).json(bodyRes);
+    }
+    else {
+        res.status(401).json(modelMsg('401@getFile'));
+        return;
+    }
+}
 export async function addFile(req, res, next) {
-    console.log(req.file);
-    console.log(req.body);
-    console.log(req.body.ancestor);
-    res.status(200).json(modelMsg('200@addFile'));
-    return;
+    const { addFile } = await import('../data/worker.data.js');
+    const data = await addFile(req.db, { ancestor: new ObjectId(req.body.ancestor), file: req.file });
+    if (data) {
+        let bodyRes = {
+            _id: data.toString()
+        };
+        res.status(200).json(bodyRes);
+    }
+    else {
+        res.status(401).json(modelMsg('401@addFile'));
+        return;
+    }
 }

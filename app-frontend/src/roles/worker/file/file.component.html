@@ -1,1 +1,44 @@
-<p>file works!</p>
+<div class="file">
+    <div class="btn-group me-3">
+        <button class="btn btn-sm btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+        </button>
+        <ul class="dropdown-menu">
+            <li>
+                <button (click)="actions('show-content')" class="dropdown-item" type="button">
+                    abrir
+                </button>
+            </li>
+            <li>
+                <button (click)="actions('share')" class="dropdown-item" type="button">
+                    compartir
+                </button>
+            </li>
+            <li>
+                <hr class="dropdown-divider">
+            </li>
+            <li>
+                <button class="dropdown-item" type="button">
+                    copiar
+                </button>
+            </li>
+            <li>
+                <button class="dropdown-item" type="button">
+                    mover
+                </button>
+            </li>
+            <li>
+                <button (click)="actions('delete')" class="dropdown-item" type="button">
+                    eliminar
+                </button>
+            </li>
+        </ul>
+    </div>
+
+    <span class="align-middle border-bottom">{{modelFile?.originalname}}</span>
+    @if(flagShowContent){
+    <ul>
+        {{modelFile?.originalname}}
+    </ul>
+    }
+</div>

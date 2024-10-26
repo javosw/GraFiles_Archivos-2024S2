@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 //
 import { Observable } from 'rxjs';
 //
-import { ModelFolder } from '../../model/worker.model';
-import { apiWorkerAddFile, apiWorkerAddFolder, apiWorkerGetFolder } from '../routes/gf-api.paths';
+import { ModelFile, ModelFolder } from '../../model/worker.model';
+import { apiWorkerAddFile, apiWorkerAddFolder, apiWorkerGetFile, apiWorkerGetFolder } from '../routes/gf-api.paths';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +21,11 @@ export class WorkerService {
     return this.http.post<ModelFolder>(url, body, { headers });
   }
 
-  getFile() {
+  getFile(body: { _id: string }): Observable<ModelFile> {
+    let url: string = apiWorkerGetFile;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    return this.http.post<ModelFile>(url, body, { headers });
   }
 
   addFolder(body: { ancestor: string, name: string }): Observable<{ _id: string }> {
@@ -40,12 +44,12 @@ export class WorkerService {
     return this.http.post<{ _id: string }>(url, body);
   }
 
-/*
-ObjectId(inputId: string): ObjectId
-Create ObjectId from a 24 character hex string.
-
-(method) ObjectId.toString(encoding?: "hex" | "base64"): string
-Converts the id into a 24 character hex string for printing, unless encoding is provided.
-*/
+  /*
+  ObjectId(inputId: string): ObjectId
+  Create ObjectId from a 24 character hex string.
+  
+  (method) ObjectId.toString(encoding?: "hex" | "base64"): string
+  Converts the id into a 24 character hex string for printing, unless encoding is provided.
+  */
 
 }

@@ -1,5 +1,5 @@
 import { Db, ObjectId } from 'mongodb';
-import { ModelFolder } from '../model/worker.model.js';
+import { ModelFile, ModelFolder } from '../model/worker.model.js';
 
 export async function getFolder(db: Db, data: { _id: ObjectId }): Promise<ModelFolder | null> {
     try {
@@ -46,6 +46,45 @@ export async function addFolder(db: Db, filter: { ancestor: ObjectId, name: stri
     return null;
 }
 
+export async function addFile(db: Db, filter: { ancestor: ObjectId, file: Express.Multer.File }): Promise<ObjectId | null> {
+    try {
+        const folders = db.collection<ModelFolder>("folders");
 
+        const folder = await folders.findOne({ _id: filter.ancestor });
+        if (!folder) { throw new Error(); }
+
+        const files = db.collection("files");
+
+        const file = await files.insertOne({
+            ancestor: filter.ancestor,
+            file: filter.file,
+        });
+
+        await folders.updateOne(
+            { _id: filter.ancestor },
+            { $push: { files: file.insertedId } }
+        );
+
+        return file.insertedId;
+    } catch (error) {
+    }
+    finally {
+    }
+    return null;
+}
+
+export async function getFile(db: Db, data: { _id: ObjectId }): Promise<ModelFile | null> {
+    try {
+        const collection = db.collection<ModelFile>("files");
+        const doc = await collection.findOne(data);
+        if (doc) {
+            return doc;
+        }
+    } catch (error) {
+    }
+    finally {
+    }
+    return null;
+}
 
 

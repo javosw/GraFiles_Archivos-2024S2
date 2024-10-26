@@ -1,11 +1,56 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+//
+import { WorkerService } from '../../../api/services/worker.service';
+import { ModelFile } from '../../../model/worker.model';
 
 @Component({
   selector: 'gf-file',
   standalone: true,
-  imports: [],
+  imports: [FormsModule, ReactiveFormsModule],
   templateUrl: './file.component.html',
+  styles: `.file { width: 500px; }`
 })
 export class FileComponent {
+  constructor(private workerService: WorkerService) { }
+  ngOnInit() { this.getFile(); }
+
+  @Input() _id: string = '';
+  modelFile: ModelFile | null = null;
+
+  getFile() {
+    this.workerService.getFile({ _id: this._id }).subscribe({
+      next: (value: ModelFile) => {
+        this.modelFile = value;
+      },
+      error: () => {
+      }
+    });
+  }
+
+  flagShowContent: boolean = false;
+  flagShowOperations: boolean = false;
+  flagDelete: boolean = false;
+  flagShare: boolean = false;
+  flagCopy: boolean = false;
+  flagMove: boolean = false;
+
+  actions(button: 'show-content' | 'share' | 'copy' | 'move' | 'delete') {
+    if (button == 'show-content') {
+      this.flagShowContent = !this.flagShowContent
+    }
+    else if (button == 'share') {
+      this.flagShare = !this.flagShare
+    }
+    else if (button == 'copy') {
+      this.flagCopy = !this.flagCopy
+    }
+    else if (button == 'move') {
+      this.flagMove = !this.flagMove
+    }
+    else if (button == 'delete') {
+      this.flagDelete = !this.flagDelete;
+    }
+  }
 
 }

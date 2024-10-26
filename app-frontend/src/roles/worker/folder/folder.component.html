@@ -22,16 +22,6 @@
                     </button>
                 </li>
                 <li>
-                    <button (click)="actions('add-text')" class="dropdown-item" type="button">
-                        agregar texto
-                    </button>
-                </li>
-                <li>
-                    <button class="dropdown-item" type="button">
-                        agregar imagen
-                    </button>
-                </li>
-                <li>
                     <hr class="dropdown-divider">
                 </li>
                 <li>
@@ -53,7 +43,8 @@
     <div class="input-group input-group-sm m-3">
         <input type="file" accept=".png,.jpg,.txt,.html" (change)="setFile($event)" class="form-control form-control-sm"
             aria-describedby="flagAddText" aria-label="Upload">
-        <button type="button" (click)="addFile()" class="btn btn-outline-secondary" id="flagAddText">AGREGAR ARCHIVO</button>
+        <button type="button" (click)="addFile()" class="btn btn-outline-secondary" id="flagAddText">AGREGAR
+            ARCHIVO</button>
     </div>
     }
     @if(flagAddFolder){
@@ -75,7 +66,7 @@
         <li><gf-folder [_id]="folder"></gf-folder></li>
         }
         @for (file of dataFolder?.files; track file) {
-        <li>{{file}}</li>
+        <li><gf-file [_id]="file"></gf-file></li>
         }
     </ul>
     }

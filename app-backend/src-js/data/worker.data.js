@@ -41,3 +41,38 @@ export async function addFolder(db, filter) {
     }
     return null;
 }
+export async function addFile(db, filter) {
+    try {
+        const folders = db.collection("folders");
+        const folder = await folders.findOne({ _id: filter.ancestor });
+        if (!folder) {
+            throw new Error();
+        }
+        const files = db.collection("files");
+        const file = await files.insertOne({
+            ancestor: filter.ancestor,
+            file: filter.file,
+        });
+        await folders.updateOne({ _id: filter.ancestor }, { $push: { files: file.insertedId } });
+        return file.insertedId;
+    }
+    catch (error) {
+    }
+    finally {
+    }
+    return null;
+}
+export async function getFile(db, data) {
+    try {
+        const collection = db.collection("files");
+        const doc = await collection.findOne(data);
+        if (doc) {
+            return doc;
+        }
+    }
+    catch (error) {
+    }
+    finally {
+    }
+    return null;
+}

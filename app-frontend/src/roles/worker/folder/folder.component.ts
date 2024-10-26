@@ -1,13 +1,14 @@
 import { Component, Input } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 //
 import { WorkerService } from '../../../api/services/worker.service';
 import { ModelFolder } from '../../../model/worker.model';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FileComponent } from '../file/file.component';
 
 @Component({
   selector: 'gf-folder',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule, FileComponent],
   templateUrl: './folder.component.html',
   styles: `
   .folder { width: 500px; }
@@ -75,7 +76,7 @@ export class FolderComponent {
   flagDelete: boolean = false;
   flagAddFile: boolean = false;
 
-  actions(button: 'add-file' | 'show-content' | 'add-folder' | 'add-image' | 'add-text' | 'copy' | 'move' | 'delete') {
+  actions(button: 'add-file' | 'show-content' | 'add-folder' | 'copy' | 'move' | 'delete') {
     if (button == 'show-content') {
       this.flagShowContent = !this.flagShowContent
     }
@@ -84,12 +85,6 @@ export class FolderComponent {
     }
     else if (button == 'add-file') {
       this.flagAddFile = !this.flagAddFile
-    }
-    else if (button == 'add-image') {
-      this.flagAddImage = !this.flagAddImage;
-    }
-    else if (button == 'add-text') {
-      this.flagAddText = !this.flagAddText;
     }
     else if (button == 'copy') {
     }

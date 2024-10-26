@@ -9,7 +9,7 @@ export type ModelFolder = {
 export type ModelFile = {
     _id: string,
     ancestor: string,
-    name: string,
-    mimetype: 'text' | 'image',
-    content: string, 
+    originalname: string,
+    mimetype: string,
+    path: string
 }

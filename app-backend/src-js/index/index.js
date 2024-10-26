@@ -22,6 +22,9 @@ app.post('/session/get', getSession);
 const { getFolder } = await import('../middle/worker.mw.js');
 app.post('/folders/get', checkSession(['admin', 'worker']), getFolder);
 // ========================================================
+const { getFile } = await import('../middle/worker.mw.js');
+app.post('/files/get', checkSession(['admin', 'worker']), getFile);
+// ========================================================
 const { addFolder } = await import('../middle/worker.mw.js');
 app.post('/folders/add', checkSession(['admin', 'worker']), addFolder);
 // ========================================================

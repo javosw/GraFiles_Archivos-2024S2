@@ -8,10 +8,19 @@ export type ModelFolder = {
     files: ObjectId[]
 }
 
+export type ModelFileOk = {
+    _id: string,
+    ancestor: string,
+    originalname: string,
+    mimetype: string,
+    path: string
+}
 export type ModelFile = {
     _id: ObjectId,
-    name: String,
-    type: 'text' | 'image',
     ancestor: ObjectId,
-    content: String, 
+    file: {
+        originalname: string,
+        mimetype: string,
+        path: string
+    }
 }
