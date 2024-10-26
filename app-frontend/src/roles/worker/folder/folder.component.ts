@@ -21,10 +21,6 @@ export class FolderComponent {
 
   @Input() _id: string = '';
   dataFolder: ModelFolder | null = null;
-
-  flagShowContent: boolean = false;
-  flagShowOperations: boolean = false;
-
   dataAddFolder: { name: string } = { name: '' };
 
   addFolder() {
@@ -36,16 +32,6 @@ export class FolderComponent {
       error: () => { }
     })
   }
-  addFile() { }
-
-
-  /*
-ObjectId(inputId: string): ObjectId
-Create ObjectId from a 24 character hex string.
-
-(method) ObjectId.toString(encoding?: "hex" | "base64"): string
-Converts the id into a 24 character hex string for printing, unless encoding is provided.
-  */
 
   getFolder() {
     this.workerService.getFolder({ _id: this._id }).subscribe({
@@ -56,17 +42,48 @@ Converts the id into a 24 character hex string for printing, unless encoding is 
       }
     });
   }
+
+  file: File | null = null;
+
+  setFile(event: Event) {
+    if (event) {
+      let element = event.target as HTMLInputElement;
+      let fileList: FileList | null = element.files;
+      if (fileList) {
+        console.log(fileList);
+        this.file = fileList[0];
+      }
+    }
+  }
+
+  addFile() {
+    if (!this.file) { return; }
+    this.workerService.addFile(this._id, this.file).subscribe({
+      next: (value: { _id: string }) => {
+        this.dataFolder?.files.push(value._id);
+        this.flagShowContent = true;
+      },
+      error: () => { }
+    });
+  }
+
+  flagShowContent: boolean = false;
+  flagShowOperations: boolean = false;
   flagAddFolder: boolean = false;
   flagAddImage: boolean = false;
   flagAddText: boolean = false;
   flagDelete: boolean = false;
+  flagAddFile: boolean = false;
 
-  actions(button: 'show-content' | 'add-folder' | 'add-image' | 'add-text' | 'copy' | 'move' | 'delete') {
+  actions(button: 'add-file' | 'show-content' | 'add-folder' | 'add-image' | 'add-text' | 'copy' | 'move' | 'delete') {
     if (button == 'show-content') {
       this.flagShowContent = !this.flagShowContent
     }
     else if (button == 'add-folder') {
       this.flagAddFolder = !this.flagAddFolder
+    }
+    else if (button == 'add-file') {
+      this.flagAddFile = !this.flagAddFile
     }
     else if (button == 'add-image') {
       this.flagAddImage = !this.flagAddImage;
@@ -80,6 +97,6 @@ Converts the id into a 24 character hex string for printing, unless encoding is 
     else if (button == 'delete') {
       this.flagDelete = !this.flagDelete;
     }
-
   }
+
 }

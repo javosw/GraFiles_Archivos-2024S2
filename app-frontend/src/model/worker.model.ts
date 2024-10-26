@@ -1,6 +1,6 @@
 export type ModelFolder = {
     _id: string,
-    name: String,
+    name: string,
     ancestor: string | null,
     folders: string[],
     files: string[]
@@ -8,8 +8,8 @@ export type ModelFolder = {
 
 export type ModelFile = {
     _id: string,
-    name: String,
-    type: 'text' | 'image',
     ancestor: string,
-    content: String, 
+    name: string,
+    mimetype: 'text' | 'image',
+    content: string, 
 }

@@ -40,4 +40,12 @@ export class WorkerService {
     return this.http.post<{ _id: string }>(url, body);
   }
 
+/*
+ObjectId(inputId: string): ObjectId
+Create ObjectId from a 24 character hex string.
+
+(method) ObjectId.toString(encoding?: "hex" | "base64"): string
+Converts the id into a 24 character hex string for printing, unless encoding is provided.
+*/
+
 }
