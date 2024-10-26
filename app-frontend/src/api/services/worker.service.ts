@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 //
 import { ModelFolder } from '../../model/worker.model';
-import { apiWorkerAddFolder, apiWorkerGetFolder } from '../routes/gf-api.paths';
+import { apiWorkerAddFile, apiWorkerAddFolder, apiWorkerGetFolder } from '../routes/gf-api.paths';
 
 @Injectable({
   providedIn: 'root'
@@ -13,13 +13,6 @@ import { apiWorkerAddFolder, apiWorkerGetFolder } from '../routes/gf-api.paths';
 export class WorkerService {
 
   constructor(private http: HttpClient, private router: Router) { }
-
-  addFolder(body: { ancestor: string, name: string }): Observable<{ _id: string }> {
-    let url: string = apiWorkerAddFolder;
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-
-    return this.http.post<{ _id: string }>(url, body, { headers });
-  }
 
   getFolder(body: { _id: string }): Observable<ModelFolder> {
     let url: string = apiWorkerGetFolder;
@@ -29,6 +22,22 @@ export class WorkerService {
   }
 
   getFile() {
-
   }
+
+  addFolder(body: { ancestor: string, name: string }): Observable<{ _id: string }> {
+    let url: string = apiWorkerAddFolder;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    return this.http.post<{ _id: string }>(url, body, { headers });
+  }
+
+  addFile(ancestor: string, file: File): Observable<{ _id: string }> {
+    let url: string = apiWorkerAddFile;
+    const body = new FormData();
+    body.append('ancestor', ancestor);
+    body.append('file', file);
+
+    return this.http.post<{ _id: string }>(url, body);
+  }
+
 }
