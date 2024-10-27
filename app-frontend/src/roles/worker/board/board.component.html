@@ -1,5 +1,6 @@
 <div class="container">
-    <h1>WorkerBoard</h1>
-    <gf-folder [_id]="dataGetSessionOk?.folderRoot || ''"></gf-folder>
-    <gf-folder [_id]="dataGetSessionOk?.folderShared || ''"></gf-folder>
+    <h1>{{dataGetSessionOk?.username}}</h1>
+    <hr>
+    <gf-folder [_id]="dataGetSessionOk?.folderRoot || null"></gf-folder>
+    <gf-shared-folder [_id]="dataGetSessionOk?.folderShared || null"></gf-shared-folder>
 </div>

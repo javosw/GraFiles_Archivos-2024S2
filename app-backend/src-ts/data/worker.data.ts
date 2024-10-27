@@ -1,5 +1,5 @@
 import { Db, ObjectId } from 'mongodb';
-import { ModelFile, ModelFolder } from '../model/worker.model.js';
+import { ModelFile, ModelFolder, SharedFolder } from '../model/worker.model.js';
 
 export async function getFolder(db: Db, data: { _id: ObjectId }): Promise<ModelFolder | null> {
     try {
@@ -8,6 +8,18 @@ export async function getFolder(db: Db, data: { _id: ObjectId }): Promise<ModelF
         if (doc) {
             return doc as ModelFolder;
         }
+    } catch (error) {
+    }
+    finally {
+    }
+    return null;
+}
+
+export async function getSharedFolder(db: Db, data: { _id: ObjectId }): Promise<SharedFolder | null> {
+    try {
+        const folders = db.collection<SharedFolder>("folders");
+        const folder = await folders.findOne(data);
+        return folder;
     } catch (error) {
     }
     finally {
@@ -95,7 +107,7 @@ export const shareFile = async (db: Db, data: { idFile: string, fromUser: string
         const user = await users.findOne({ username: data.toUser });
         if (!user) { return 0 }
 
-        type SharedFolder = { files: { file: ObjectId, fromUser: string }[] };
+        type SharedFolder = { files: { idFile: ObjectId, fromUser: string }[] };
 
         const folders = db.collection<SharedFolder>('folders');
         const sharedFolder = await folders.findOne({ _id: user.folderShared });
@@ -106,7 +118,7 @@ export const shareFile = async (db: Db, data: { idFile: string, fromUser: string
             {
                 $push: {
                     files: {
-                        file: new ObjectId(data.idFile),
+                        idFile: new ObjectId(data.idFile),
                         fromUser: data.fromUser
                     }
                 }

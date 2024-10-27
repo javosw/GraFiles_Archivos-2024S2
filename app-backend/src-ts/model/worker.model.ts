@@ -24,3 +24,9 @@ export type ModelFile = {
         path: string
     }
 }
+
+export type SharedFolder = {
+    _id: ObjectId,
+    name: string,
+    files: { idFile: ObjectId, fromUser: string }[]
+}

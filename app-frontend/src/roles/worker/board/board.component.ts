@@ -4,11 +4,12 @@ import { FolderComponent } from "../folder/folder.component";
 import { WorkerService } from '../../../api/services/worker.service';
 import { ModelGetSessionOk } from '../../../model/guest.model';
 import { GuestService } from '../../../api/services/guest.service';
+import { SharedFolderComponent } from '../shared-folder/shared-folder.component';
 
 @Component({
   selector: 'gf-board',
   standalone: true,
-  imports: [FolderComponent],
+  imports: [FolderComponent, SharedFolderComponent],
   templateUrl: './board.component.html',
 })
 export class BoardComponent {

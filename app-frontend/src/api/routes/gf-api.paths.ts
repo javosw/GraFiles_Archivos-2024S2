@@ -7,6 +7,7 @@ export let apiGuestGetWorker: string = '';
 
 export let apiWorkerAddFolder = 'http://localhost:3000/folders/add';
 export let apiWorkerGetFolder = 'http://localhost:3000/folders/get';
+export let apiWorkerGetSharedFolder = 'http://localhost:3000/shared-folders/get';
 export let apiWorkerGetFile = 'http://localhost:3000/files/get';
 export let apiWorkerAddFile = 'http://localhost:3000/files/add';
 export let apiWorkerShareFile = 'http://localhost:3000/files/share';

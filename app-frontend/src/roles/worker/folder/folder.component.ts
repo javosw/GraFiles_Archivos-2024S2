@@ -17,14 +17,14 @@ import { FileComponent } from '../file/file.component';
 })
 export class FolderComponent {
   constructor(private workerService: WorkerService) { }
-
   ngOnInit() { this.getFolder(); }
 
-  @Input() _id: string = '';
+  @Input() _id: string | null = null;
   dataFolder: ModelFolder | null = null;
   dataAddFolder: { name: string } = { name: '' };
 
   addFolder() {
+    if (!this._id) { return; }
     this.workerService.addFolder({ ancestor: this._id, name: this.dataAddFolder.name }).subscribe({
       next: (value: { _id: string }) => {
         this.dataFolder?.folders.push(value._id);
@@ -35,6 +35,7 @@ export class FolderComponent {
   }
 
   getFolder() {
+    if (!this._id) { return; }
     this.workerService.getFolder({ _id: this._id }).subscribe({
       next: (value: ModelFolder) => {
         this.dataFolder = value;
@@ -58,7 +59,7 @@ export class FolderComponent {
   }
 
   addFile() {
-    if (!this.file) { return; }
+    if (!this._id || !this.file) { return; }
     this.workerService.addFile(this._id, this.file).subscribe({
       next: (value: { _id: string }) => {
         this.dataFolder?.files.push(value._id);

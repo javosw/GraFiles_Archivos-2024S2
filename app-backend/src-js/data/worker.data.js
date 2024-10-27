@@ -13,6 +13,18 @@ export async function getFolder(db, data) {
     }
     return null;
 }
+export async function getSharedFolder(db, data) {
+    try {
+        const folders = db.collection("folders");
+        const folder = await folders.findOne(data);
+        return folder;
+    }
+    catch (error) {
+    }
+    finally {
+    }
+    return null;
+}
 export async function addFolder(db, filter) {
     try {
         const foldersGet = db.collection("folders");
@@ -92,7 +104,7 @@ export const shareFile = async (db, data) => {
         const modSharedFolder = await folders.updateOne({ _id: sharedFolder._id }, {
             $push: {
                 files: {
-                    file: new ObjectId(data.idFile),
+                    idFile: new ObjectId(data.idFile),
                     fromUser: data.fromUser
                 }
             }

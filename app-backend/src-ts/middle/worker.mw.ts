@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { ObjectId } from "mongodb";
 import { modelMsg, ModelMsg } from "../model/guest.model.js";
 import path from 'path';
+import { SharedFolder } from "../model/worker.model.js";
 
 export async function getFolder(req: Request, res: Response, next: NextFunction) {
     const { getFolder } = await import('../data/worker.data.js');
@@ -30,6 +31,35 @@ export async function getFolder(req: Request, res: Response, next: NextFunction)
     }
 }
 
+export const getSharedFolder = async (req: Request, res: Response, next: NextFunction) => {
+    const { getSharedFolder } = await import('../data/worker.data.js');
+
+    const _id: string = req.body._id;
+    const value: SharedFolder | null = await getSharedFolder(req.db, { _id: new ObjectId(_id) });
+
+    if (value) {
+        let files: { idFile: string; fromUser: string; }[] = [];
+        value.files.forEach((file) => {
+            files.push({
+                idFile: file.idFile?.toString(),
+                fromUser: file.fromUser
+            });
+        });
+
+        let bodyRes = {
+            _id: value._id.toString(),
+            name: value.name,
+            files
+        }
+
+        console.log(bodyRes);
+        res.status(200).json(bodyRes);
+    }
+    else {
+        res.status(400).json(modelMsg('400@getFolder'));
+        return;
+    }
+}
 
 export async function addFolder(req: Request, res: Response, next: NextFunction) {
     const { addFolder } = await import('../data/worker.data.js');
@@ -101,9 +131,9 @@ export async function openFile(req: Request, res: Response, next: NextFunction) 
 export const shareFile = async (req: Request, res: Response, next: NextFunction) => {
     const { idFile, fromUser, toUser } = req.body;
     const { shareFile } = await import('../data/worker.data.js');
-    let operation = await shareFile(req.db, { idFile, fromUser, toUser });
+    let value: number = await shareFile(req.db, { idFile, fromUser, toUser });
 
-    if (operation == 1) {
+    if (value == 1) {
         res.status(200).json(modelMsg('200@shareFile'));
     }
     else {

@@ -24,6 +24,31 @@ export async function getFolder(req, res, next) {
         return;
     }
 }
+export const getSharedFolder = async (req, res, next) => {
+    const { getSharedFolder } = await import('../data/worker.data.js');
+    const _id = req.body._id;
+    const value = await getSharedFolder(req.db, { _id: new ObjectId(_id) });
+    if (value) {
+        let files = [];
+        value.files.forEach((file) => {
+            files.push({
+                idFile: file.idFile?.toString(),
+                fromUser: file.fromUser
+            });
+        });
+        let bodyRes = {
+            _id: value._id.toString(),
+            name: value.name,
+            files
+        };
+        console.log(bodyRes);
+        res.status(200).json(bodyRes);
+    }
+    else {
+        res.status(400).json(modelMsg('400@getFolder'));
+        return;
+    }
+};
 export async function addFolder(req, res, next) {
     const { addFolder } = await import('../data/worker.data.js');
     let bodyReq = req.body;
@@ -84,8 +109,8 @@ export async function openFile(req, res, next) {
 export const shareFile = async (req, res, next) => {
     const { idFile, fromUser, toUser } = req.body;
     const { shareFile } = await import('../data/worker.data.js');
-    let operation = await shareFile(req.db, { idFile, fromUser, toUser });
-    if (operation == 1) {
+    let value = await shareFile(req.db, { idFile, fromUser, toUser });
+    if (value == 1) {
         res.status(200).json(modelMsg('200@shareFile'));
     }
     else {
