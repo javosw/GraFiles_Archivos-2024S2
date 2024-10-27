@@ -32,11 +32,6 @@
             </button>
             <ul class="dropdown-menu">
                 <li>
-                    <button (click)="actions('show-content')" class="dropdown-item" type="button">
-                        abrir
-                    </button>
-                </li>
-                <li>
                     <button (click)="actions('share')" class="dropdown-item" type="button">
                         compartir
                     </button>
@@ -64,13 +59,24 @@
     </div>
 
     <span class="align-middle">{{modelFile?.originalname}}</span>
+    @if(flagShare){
+    <div class="input-group input-group-sm">
+        <input type="text" [(ngModel)]="formAllowedUser" class="form-control">
+        <button (click)="shareFile()" class="btn btn-outline-secondary" type="button">COMPARTIR A USUARIO</button>
+    </div>
+    @if(flagShareSent && flagShareOk){
+    <div class="bg-info-subtle text-info-emphasis px-2 py-1 mb-1">Archivo compartido con exito.</div>
+    }
+    @else if(flagShareSent && !flagShareOk){
+    <div class="bg-danger-subtle text-danger-emphasis px-2 py-1 mb-1">El archivo no pudo ser compartido.</div>
+    }
+    }
     @if(flagShowContent){
     @if(flagIcon == 'image'){
     <img [src]="apiOpenFile" style="width: 100%; height: 100%; object-fit: contain;">
     }
     @else if(flagIcon == 'text'){
-    <object [data]="apiOpenFile" width="100%" height="500px"> <!--[type]="modelFile?.mimetype"-->
-    </object>
+    <object [data]="apiOpenFile" style="max-width: 100%; max-height: 500px; width: 100%; height: auto;"> </object>
     }
     @else {
     }

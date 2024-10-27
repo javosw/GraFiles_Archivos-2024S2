@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 //
 import { ModelFile, ModelFolder } from '../../model/worker.model';
-import { apiWorkerAddFile, apiWorkerAddFolder, apiWorkerGetFile, apiWorkerGetFolder } from '../routes/gf-api.paths';
+import { apiWorkerAddFile, apiWorkerAddFolder, apiWorkerGetFile, apiWorkerGetFolder, apiWorkerShareFile } from '../routes/gf-api.paths';
 
 @Injectable({
   providedIn: 'root'
@@ -42,6 +42,13 @@ export class WorkerService {
     body.append('file', file);
 
     return this.http.post<{ _id: string }>(url, body);
+  }
+
+  shareFile(body: { file: string, owner: string, allowed: string }) {
+    let url: string = apiWorkerShareFile;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    return this.http.post<any>(url, body, { headers });
   }
 
   /*

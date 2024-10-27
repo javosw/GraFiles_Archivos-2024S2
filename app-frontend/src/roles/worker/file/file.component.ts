@@ -5,6 +5,7 @@ import { WorkerService } from '../../../api/services/worker.service';
 import { ModelFile } from '../../../model/worker.model';
 import { apiWorkerOpenFile } from '../../../api/routes/gf-api.paths';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { GuestService } from '../../../api/services/guest.service';
 
 @Component({
   selector: 'gf-file',
@@ -14,8 +15,11 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
   styles: `.file { width: 500px; }`
 })
 export class FileComponent {
-  constructor(private workerService: WorkerService, private domSanitizer: DomSanitizer) { }
+  constructor(private workerService: WorkerService, private guestService: GuestService, private domSanitizer: DomSanitizer) {
+    guestService.dataGetSessionOk.subscribe((value) => { this.formOwner = value?.username || '' })
+  }
   ngOnInit() { this.getFile(); }
+  formOwner: string = '';
 
   @Input() _id: string = '';
   modelFile: ModelFile | null = null;
@@ -38,6 +42,32 @@ export class FileComponent {
       error: () => {
       }
     });
+  }
+
+  formAllowedUser: string = '';
+
+
+  flagShareSent: boolean = false;
+  flagShareOk: boolean = false;
+
+  shareFile() {
+    this.flagShareSent = false;
+    this.flagShareOk = false;
+    if (!this.modelFile?._id || this.formOwner.length == 0 || this.formAllowedUser.length == 0) { return; }
+    this.workerService.shareFile({
+      file: this.modelFile._id,
+      owner: this.formOwner,
+      allowed: this.formAllowedUser
+    }).subscribe({
+      next:(value)=>{
+        this.flagShareSent = true;
+        this.flagShareOk = true;
+      },
+      error:()=>{
+        this.flagShareSent = true;
+        this.flagShareOk = false;
+      }
+    })
   }
 
   flagIcon: 'image' | 'text' | null = null;
