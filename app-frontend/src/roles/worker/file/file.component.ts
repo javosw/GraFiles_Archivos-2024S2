@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { WorkerService } from '../../../api/services/worker.service';
 import { ModelFile } from '../../../model/worker.model';
 import { apiWorkerOpenFile } from '../../../api/routes/gf-api.paths';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'gf-file',
@@ -13,13 +14,14 @@ import { apiWorkerOpenFile } from '../../../api/routes/gf-api.paths';
   styles: `.file { width: 500px; }`
 })
 export class FileComponent {
-  constructor(private workerService: WorkerService) { }
+  constructor(private workerService: WorkerService, private domSanitizer: DomSanitizer) { }
   ngOnInit() { this.getFile(); }
 
   @Input() _id: string = '';
   modelFile: ModelFile | null = null;
 
-  src: string = '';
+  apiOpenFile: SafeResourceUrl | null = null;
+
   getFile() {
     this.workerService.getFile({ _id: this._id }).subscribe({
       next: (value: ModelFile) => {
@@ -30,7 +32,8 @@ export class FileComponent {
         else if (value.mimetype == 'text/plain' || value.mimetype == 'text/html') {
           this.flagIcon = 'text';
         }
-        this.src = apiWorkerOpenFile(value.ancestor, value.originalname);
+
+        this.apiOpenFile = this.domSanitizer.bypassSecurityTrustResourceUrl(apiWorkerOpenFile(value.ancestor, value.originalname));
       },
       error: () => {
       }

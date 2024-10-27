@@ -46,16 +46,16 @@
     </div>
     <span class="align-middle">{{dataFolder?.name}}</span>
     @if(flagAddFile){
-    <div class="input-group input-group-sm m-3">
-        <input type="file" accept=".png,.jpg,.txt,.html" (change)="setFile($event)" class="form-control form-control-sm"
+    <div class="input-group input-group-sm">
+        <input type="file" accept=".png,.jpg,.txt,.html" (change)="setFile($event)" class="form-control"
             aria-describedby="flagAddText" aria-label="Upload">
         <button type="button" (click)="addFile()" class="btn btn-outline-secondary" id="flagAddText">AGREGAR
             ARCHIVO</button>
     </div>
     }
     @if(flagAddFolder){
-    <div class="input-group input-group-sm m-3">
-        <input type="text" [(ngModel)]="dataAddFolder.name" class="form-control form-control-sm"
+    <div class="input-group input-group-sm">
+        <input type="text" [(ngModel)]="dataAddFolder.name" class="form-control"
             placeholder="nombre para la carpeta" aria-describedby="flagAddFolder">
         <!--span  class="input-group-text" id="flagAddFolder">AGREGAR CARPETA</span-->
         <button (click)="addFolder()" class="btn btn-outline-secondary" type="button" id="flagAddFolder">
