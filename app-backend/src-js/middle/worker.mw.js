@@ -20,7 +20,7 @@ export async function getFolder(req, res, next) {
         res.status(200).json(bodyRes);
     }
     else {
-        res.status(401).json(modelMsg('401@getFolder'));
+        res.status(400).json(modelMsg('400@getFolder'));
         return;
     }
 }
@@ -35,7 +35,7 @@ export async function addFolder(req, res, next) {
         res.status(200).json(bodyRes);
     }
     else {
-        res.status(401).json(modelMsg('401@addFolder'));
+        res.status(400).json(modelMsg('400@addFolder'));
         return;
     }
 }
@@ -54,7 +54,7 @@ export async function getFile(req, res, next) {
         res.status(200).json(bodyRes);
     }
     else {
-        res.status(401).json(modelMsg('401@getFile'));
+        res.status(400).json(modelMsg('400@getFile'));
         return;
     }
 }
@@ -68,12 +68,12 @@ export async function addFile(req, res, next) {
         res.status(200).json(bodyRes);
     }
     else {
-        res.status(401).json(modelMsg('401@addFile'));
+        res.status(400).json(modelMsg('400@addFile'));
         return;
     }
 }
 export async function openFile(req, res, next) {
-    let { folder, file } = req.query;
+    const { folder, file } = req.query;
     const filePath = path.join(process.cwd(), 'files', `${folder}`, `${file}`);
     res.sendFile(filePath, (err) => {
         if (err) {
@@ -81,3 +81,15 @@ export async function openFile(req, res, next) {
         }
     });
 }
+export const shareFile = async (req, res, next) => {
+    const { idFile, fromUser, toUser } = req.body;
+    const { shareFile } = await import('../data/worker.data.js');
+    let operation = await shareFile(req.db, { idFile, fromUser, toUser });
+    if (operation == 1) {
+        res.status(200).json(modelMsg('200@shareFile'));
+    }
+    else {
+        res.status(400).json(modelMsg('400@shareFile'));
+        return;
+    }
+};

@@ -13,7 +13,8 @@ const sessionOptions = {
 export const customSession = session(sessionOptions);
 export async function getSession(req, res, next) {
     const { getUser } = await import('../data/guest.data.js');
-    const data = await getUser(req.db, req.body);
+    const { username, password } = req.body;
+    const data = await getUser(req.db, { username, password });
     if (data) {
         req.session.username = data.username;
         req.session.role = data.role;

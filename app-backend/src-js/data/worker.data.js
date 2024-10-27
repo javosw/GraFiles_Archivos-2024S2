@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb';
 export async function getFolder(db, data) {
     try {
         const collection = db.collection("folders");
@@ -76,3 +77,28 @@ export async function getFile(db, data) {
     }
     return null;
 }
+export const shareFile = async (db, data) => {
+    try {
+        const users = db.collection('users');
+        const user = await users.findOne({ username: data.toUser });
+        if (!user) {
+            return 0;
+        }
+        const folders = db.collection('folders');
+        const sharedFolder = await folders.findOne({ _id: user.folderShared });
+        if (!sharedFolder) {
+            return 0;
+        }
+        const modSharedFolder = await folders.updateOne({ _id: sharedFolder._id }, {
+            $push: {
+                files: {
+                    file: new ObjectId(data.idFile),
+                    fromUser: data.fromUser
+                }
+            }
+        });
+        return modSharedFolder.modifiedCount;
+    }
+    catch (error) { }
+    return 0;
+};

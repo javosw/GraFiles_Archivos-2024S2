@@ -87,4 +87,34 @@ export async function getFile(db: Db, data: { _id: ObjectId }): Promise<ModelFil
     return null;
 }
 
+export const shareFile = async (db: Db, data: { idFile: string, fromUser: string, toUser: string }): Promise<number> => {
+    try {
+        type User = { folderShared: ObjectId };
 
+        const users = db.collection<User>('users');
+        const user = await users.findOne({ username: data.toUser });
+        if (!user) { return 0 }
+
+        type SharedFolder = { files: { file: ObjectId, fromUser: string }[] };
+
+        const folders = db.collection<SharedFolder>('folders');
+        const sharedFolder = await folders.findOne({ _id: user.folderShared });
+        if (!sharedFolder) { return 0 }
+
+        const modSharedFolder = await folders.updateOne(
+            { _id: sharedFolder._id },
+            {
+                $push: {
+                    files: {
+                        file: new ObjectId(data.idFile),
+                        fromUser: data.fromUser
+                    }
+                }
+            }
+        );
+        return modSharedFolder.modifiedCount;
+    }
+    catch (error) { }
+
+    return 0;
+}

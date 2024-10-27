@@ -1,15 +1,15 @@
 import { Db } from "mongodb";
 import { ModelGetSession, ModelGetSessionOk } from "../model/guest.model.js";
 
-export async function getUser(db: Db, data: ModelGetSession): Promise<ModelGetSessionOk | null> {
+export async function getUser(db: Db, data: { username: string; password: string; }): Promise<ModelGetSessionOk | null> {
     try {
-        const collection = db.collection('users');
+        const collection = db.collection<ModelGetSessionOk>('users');
         const doc = await collection.findOne(data);
         if (doc) {
-            return doc as unknown as ModelGetSessionOk;
+            return doc;
         }
     } catch (error) {
-        console.log({msg:'@getUser.data'});
+        console.log({ msg: '@getUser.data' });
     }
     finally {
     }

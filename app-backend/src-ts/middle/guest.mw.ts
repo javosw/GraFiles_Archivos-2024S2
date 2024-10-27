@@ -23,7 +23,8 @@ declare module "express-session" {
 
 export async function getSession(req: Request, res: Response, next: NextFunction): Promise<void> {
     const { getUser } = await import('../data/guest.data.js');
-    const data = await getUser(req.db, req.body as ModelGetSession);
+    const { username, password } = req.body
+    const data = await getUser(req.db, { username, password });
 
     if (data) {
         req.session.username = data.username;

@@ -55,9 +55,9 @@ export class FileComponent {
     this.flagShareOk = false;
     if (!this.modelFile?._id || this.formOwner.length == 0 || this.formAllowedUser.length == 0) { return; }
     this.workerService.shareFile({
-      file: this.modelFile._id,
-      owner: this.formOwner,
-      allowed: this.formAllowedUser
+      idFile: this.modelFile._id,
+      fromUser: this.formOwner,
+      toUser: this.formAllowedUser
     }).subscribe({
       next:(value)=>{
         this.flagShareSent = true;

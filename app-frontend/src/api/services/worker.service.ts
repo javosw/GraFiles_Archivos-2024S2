@@ -44,7 +44,7 @@ export class WorkerService {
     return this.http.post<{ _id: string }>(url, body);
   }
 
-  shareFile(body: { file: string, owner: string, allowed: string }) {
+  shareFile(body: { idFile: string, fromUser: string, toUser: string }) {
     let url: string = apiWorkerShareFile;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 

@@ -35,6 +35,9 @@ app.post('/files/add', checkSession(['admin', 'worker']), customMulter.single('f
 import { openFile } from '../middle/worker.mw.js';
 app.get('/files/open', checkSession(['admin', 'worker']), openFile);
 // ========================================================
+import { shareFile } from '../middle/worker.mw.js';
+app.post('/files/share', checkSession(['admin', 'worker']), shareFile);
+// ========================================================
 app.get('/', (req, res) => {
     res.send('Welcome to Express & TypeScript Server');
 });
