@@ -1,5 +1,6 @@
 import { ObjectId } from "mongodb";
 import { modelMsg } from "../model/guest.model.js";
+import path from 'path';
 export async function getFolder(req, res, next) {
     const { getFolder } = await import('../data/worker.data.js');
     let bodyReq = req.body;
@@ -70,4 +71,13 @@ export async function addFile(req, res, next) {
         res.status(401).json(modelMsg('401@addFile'));
         return;
     }
+}
+export async function openFile(req, res, next) {
+    let { folder, file } = req.query;
+    const filePath = path.join(process.cwd(), 'files', `${folder}`, `${file}`);
+    res.sendFile(filePath, (err) => {
+        if (err) {
+            res.status(500).send('500@openFile');
+        }
+    });
 }

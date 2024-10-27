@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { ObjectId } from "mongodb";
 import { modelMsg, ModelMsg } from "../model/guest.model.js";
+import path from 'path';
 
 export async function getFolder(req: Request, res: Response, next: NextFunction) {
     const { getFolder } = await import('../data/worker.data.js');
@@ -87,3 +88,12 @@ export async function addFile(req: Request, res: Response, next: NextFunction) {
     }
 }
 
+export async function openFile(req: Request, res: Response, next: NextFunction) {
+    let { folder, file } = req.query;
+    const filePath = path.join(process.cwd(), 'files', `${folder}`, `${file}`);
+    res.sendFile(filePath, (err) => {
+        if (err) {
+            res.status(500).send('500@openFile');
+        }
+    });
+}

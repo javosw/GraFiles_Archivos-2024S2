@@ -3,6 +3,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 //
 import { WorkerService } from '../../../api/services/worker.service';
 import { ModelFile } from '../../../model/worker.model';
+import { apiWorkerOpenFile } from '../../../api/routes/gf-api.paths';
 
 @Component({
   selector: 'gf-file',
@@ -18,16 +19,18 @@ export class FileComponent {
   @Input() _id: string = '';
   modelFile: ModelFile | null = null;
 
+  src: string = '';
   getFile() {
     this.workerService.getFile({ _id: this._id }).subscribe({
       next: (value: ModelFile) => {
         this.modelFile = value;
-        if(value.mimetype == 'image/png' || value.mimetype == 'image/jpeg'){
+        if (value.mimetype == 'image/png' || value.mimetype == 'image/jpeg') {
           this.flagIcon = 'image';
         }
-        else if(value.mimetype == 'text/plain' || value.mimetype == 'text/html'){
+        else if (value.mimetype == 'text/plain' || value.mimetype == 'text/html') {
           this.flagIcon = 'text';
         }
+        this.src = apiWorkerOpenFile(value.ancestor, value.originalname);
       },
       error: () => {
       }

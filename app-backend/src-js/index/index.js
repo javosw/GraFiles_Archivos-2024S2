@@ -32,6 +32,9 @@ import { addFile } from '../middle/worker.mw.js';
 import { customMulter } from '../middle/files.mw.js';
 app.post('/files/add', checkSession(['admin', 'worker']), customMulter.single('file'), addFile);
 // ========================================================
+import { openFile } from '../middle/worker.mw.js';
+app.get('/files/open', checkSession(['admin', 'worker']), openFile);
+// ========================================================
 app.get('/', (req, res) => {
     res.send('Welcome to Express & TypeScript Server');
 });
