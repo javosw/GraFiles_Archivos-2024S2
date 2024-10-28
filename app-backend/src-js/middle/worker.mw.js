@@ -1,5 +1,5 @@
 import { ObjectId } from "mongodb";
-import { modelMsg } from "../model/guest.model.js";
+import { modelMessage } from "../model/guest.model.js";
 import path from 'path';
 export async function getFolder(req, res, next) {
     const { getFolder } = await import('../data/worker.data.js');
@@ -20,7 +20,7 @@ export async function getFolder(req, res, next) {
         res.status(200).json(bodyRes);
     }
     else {
-        res.status(400).json(modelMsg('400@getFolder'));
+        res.status(400).json(modelMessage('400@getFolder'));
         return;
     }
 }
@@ -44,7 +44,7 @@ export const getSharedFolder = async (req, res, next) => {
         res.status(200).json(bodyRes);
     }
     else {
-        res.status(400).json(modelMsg('400@getFolder'));
+        res.status(400).json(modelMessage('400@getFolder'));
         return;
     }
 };
@@ -59,7 +59,7 @@ export async function addFolder(req, res, next) {
         res.status(200).json(bodyRes);
     }
     else {
-        res.status(400).json(modelMsg('400@addFolder'));
+        res.status(400).json(modelMessage('400@addFolder'));
         return;
     }
 }
@@ -78,7 +78,7 @@ export async function getFile(req, res, next) {
         res.status(200).json(bodyRes);
     }
     else {
-        res.status(400).json(modelMsg('400@getFile'));
+        res.status(400).json(modelMessage('400@getFile'));
         return;
     }
 }
@@ -92,7 +92,7 @@ export async function addFile(req, res, next) {
         res.status(200).json(bodyRes);
     }
     else {
-        res.status(400).json(modelMsg('400@addFile'));
+        res.status(400).json(modelMessage('400@addFile'));
         return;
     }
 }
@@ -110,10 +110,10 @@ export const shareFile = async (req, res, next) => {
     const { shareFile } = await import('../data/worker.data.js');
     let value = await shareFile(req.db, { idFile, fromUser, toUser });
     if (value == 1) {
-        res.status(200).json(modelMsg('200@shareFile'));
+        res.status(200).json(modelMessage('200@shareFile'));
     }
     else {
-        res.status(400).json(modelMsg('400@shareFile'));
+        res.status(400).json(modelMessage('400@shareFile'));
         return;
     }
 };
@@ -122,10 +122,10 @@ export const delFile = async (req, res, next) => {
     const { delFile } = await import('../data/worker.data.js');
     let value = await delFile(req.db, { idFile: new ObjectId(idFile) });
     if (value == 1) {
-        res.status(200).json(modelMsg('200@delFile'));
+        res.status(200).json(modelMessage('200@delFile'));
     }
     else {
-        res.status(400).json(modelMsg('400@delFile'));
+        res.status(400).json(modelMessage('400@delFile'));
         return;
     }
 };

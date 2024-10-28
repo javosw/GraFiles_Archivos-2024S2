@@ -1,3 +1,3 @@
-export function modelMsg(msg) {
-    return { msg };
+export function modelMessage(message) {
+    return { at: message };
 }

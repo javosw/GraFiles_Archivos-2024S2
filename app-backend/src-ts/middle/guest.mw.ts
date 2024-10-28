@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction, RequestHandler } from "express";
 import session, { SessionOptions } from 'express-session';
-import { ModelGetSession, ModelGetSessionOk, modelMsg, ModelRole } from "../model/guest.model.js";
+import { modelMessage, ModelRole } from "../model/guest.model.js";
 
 const sessionOptions: SessionOptions = {
     secret: 'gf',
@@ -33,7 +33,7 @@ export async function getSession(req: Request, res: Response, next: NextFunction
         res.status(200).json(data);
     }
     else {
-        res.status(401).json(modelMsg('401@getSession'));
+        res.status(401).json(modelMessage('401@getSession'));
     }
 }
 
@@ -46,11 +46,11 @@ export function checkSession(roles: ModelRole[]): RequestHandler {
                 return next();
             }
 
-            res.status(403).json(modelMsg('403@checkSession'));
+            res.status(403).json(modelMessage('403@checkSession'));
             return;
 
         } else {
-            res.status(401).json(modelMsg('401@checkSession'));
+            res.status(401).json(modelMessage('401@checkSession'));
             return;
         }
     };

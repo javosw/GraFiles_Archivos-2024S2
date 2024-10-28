@@ -5,7 +5,8 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 //
 import { ModelGetSession } from '../../model/guest.model';
-import { apiGuestAddWorker, apiGuestGetWorker } from '../routes/gf-api.paths';
+import { apiGuestAddWorker, apiGuestGetWorker, apiWorkerGetTrashFolder } from '../routes/gf-api.paths';
+import { ModelTrashFolder } from '../../model/admin.model';
 
 @Injectable({
   providedIn: 'root'
@@ -30,5 +31,11 @@ export class AdminService {
     return this.http.post<any>(url, form, { headers });
 
   }
-}
 
+  getTrashFolder(): Observable<ModelTrashFolder> {
+    let url: string = apiWorkerGetTrashFolder;
+
+    return this.http.get<ModelTrashFolder>(url);
+  }
+
+}

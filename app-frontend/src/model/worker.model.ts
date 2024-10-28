@@ -6,6 +6,12 @@ export type ModelFolder = {
     files: string[]
 }
 
+export type ModelSharedFolder = {
+    _id: string,
+    name: string,
+    files: { idFile: string, fromUser: string }[]
+}
+
 export type ModelFile = {
     _id: string,
     ancestor: string,
@@ -14,8 +20,3 @@ export type ModelFile = {
     path: string
 }
 
-export type SharedFolder = {
-    _id: string,
-    name: string,
-    files: { idFile: string, fromUser: string }[]
-}

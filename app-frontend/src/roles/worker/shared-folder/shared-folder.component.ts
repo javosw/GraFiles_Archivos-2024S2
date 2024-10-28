@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 //
 import { WorkerService } from '../../../api/services/worker.service';
-import { SharedFolder } from '../../../model/worker.model';
+import { ModelSharedFolder } from '../../../model/worker.model';
 import { SharedFileComponent } from '../shared-file/shared-file.component';
 
 @Component({
@@ -21,12 +21,12 @@ export class SharedFolderComponent {
   ngOnInit() { this.getFolder(); }
 
   @Input() _id: string | null = null;
-  dataFolder: SharedFolder | null = null;
+  dataFolder: ModelSharedFolder | null = null;
 
   getFolder() {
     if (!this._id) { return; }
     this.workerService.getSharedFolder({ _id: this._id }).subscribe({
-      next: (value: SharedFolder) => {
+      next: (value: ModelSharedFolder) => {
         this.dataFolder = value;
       },
       error: () => {

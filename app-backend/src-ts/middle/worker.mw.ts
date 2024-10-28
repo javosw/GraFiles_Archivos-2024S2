@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import { ObjectId } from "mongodb";
-import { modelMsg, ModelMsg } from "../model/guest.model.js";
+import { modelMessage, ModelMessage } from "../model/guest.model.js";
 import path from 'path';
-import { SharedFolder } from "../model/worker.model.js";
+import { ModelSharedFolder } from "../model/worker.model.js";
 
 export async function getFolder(req: Request, res: Response, next: NextFunction) {
     const { getFolder } = await import('../data/worker.data.js');
@@ -26,7 +26,7 @@ export async function getFolder(req: Request, res: Response, next: NextFunction)
         res.status(200).json(bodyRes);
     }
     else {
-        res.status(400).json(modelMsg('400@getFolder'));
+        res.status(400).json(modelMessage('400@getFolder'));
         return;
     }
 }
@@ -35,7 +35,7 @@ export const getSharedFolder = async (req: Request, res: Response, next: NextFun
     const { getSharedFolder } = await import('../data/worker.data.js');
 
     const _id: string = req.body._id;
-    const value: SharedFolder | null = await getSharedFolder(req.db, { _id: new ObjectId(_id) });
+    const value: ModelSharedFolder | null = await getSharedFolder(req.db, { _id: new ObjectId(_id) });
 
     if (value) {
         let files: { idFile: string; fromUser: string; }[] = [];
@@ -55,7 +55,7 @@ export const getSharedFolder = async (req: Request, res: Response, next: NextFun
         res.status(200).json(bodyRes);
     }
     else {
-        res.status(400).json(modelMsg('400@getFolder'));
+        res.status(400).json(modelMessage('400@getFolder'));
         return;
     }
 }
@@ -72,7 +72,7 @@ export async function addFolder(req: Request, res: Response, next: NextFunction)
         res.status(200).json(bodyRes);
     }
     else {
-        res.status(400).json(modelMsg('400@addFolder'));
+        res.status(400).json(modelMessage('400@addFolder'));
         return;
     }
 }
@@ -95,7 +95,7 @@ export async function getFile(req: Request, res: Response, next: NextFunction) {
         res.status(200).json(bodyRes);
     }
     else {
-        res.status(400).json(modelMsg('400@getFile'));
+        res.status(400).json(modelMessage('400@getFile'));
         return;
     }
 }
@@ -112,7 +112,7 @@ export async function addFile(req: Request, res: Response, next: NextFunction) {
         res.status(200).json(bodyRes);
     }
     else {
-        res.status(400).json(modelMsg('400@addFile'));
+        res.status(400).json(modelMessage('400@addFile'));
         return;
     }
 }
@@ -133,10 +133,10 @@ export const shareFile = async (req: Request, res: Response, next: NextFunction)
     let value: number = await shareFile(req.db, { idFile, fromUser, toUser });
 
     if (value == 1) {
-        res.status(200).json(modelMsg('200@shareFile'));
+        res.status(200).json(modelMessage('200@shareFile'));
     }
     else {
-        res.status(400).json(modelMsg('400@shareFile'));
+        res.status(400).json(modelMessage('400@shareFile'));
         return;
     }
 }
@@ -147,10 +147,10 @@ export const delFile = async (req: Request, res: Response, next: NextFunction) =
     let value: number = await delFile(req.db, { idFile: new ObjectId(idFile) });
 
     if (value == 1) {
-        res.status(200).json(modelMsg('200@delFile'));
+        res.status(200).json(modelMessage('200@delFile'));
     }
     else {
-        res.status(400).json(modelMsg('400@delFile'));
+        res.status(400).json(modelMessage('400@delFile'));
         return;
     }
 }

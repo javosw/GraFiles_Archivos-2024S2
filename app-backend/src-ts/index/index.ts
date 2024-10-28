@@ -37,6 +37,11 @@ app.post('/shared-folders/get', checkSession(['admin', 'worker']), getSharedFold
 
 // ========================================================
 
+const { getTrashFolder } = await import('../middle/admin.mw.js');
+app.get('/trash-folder/get', checkSession(['admin']), getTrashFolder);
+
+// ========================================================
+
 const { getFile } = await import('../middle/worker.mw.js');
 app.post('/files/get', checkSession(['admin', 'worker']), getFile);
 

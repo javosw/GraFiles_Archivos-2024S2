@@ -1,28 +1,21 @@
 import { Db, ObjectId } from 'mongodb';
-import { ModelFile, ModelFolder, SharedFolder } from '../model/worker.model.js';
+import { ModelFile, ModelFolder, ModelSharedFolder } from '../model/worker.model.js';
 
 export async function getFolder(db: Db, data: { _id: ObjectId }): Promise<ModelFolder | null> {
     try {
-        const collection = db.collection("folders");
-        const doc = await collection.findOne(data);
-        if (doc) {
-            return doc as ModelFolder;
-        }
-    } catch (error) {
+        const collection = db.collection<ModelFolder>("folders");
+        return await collection.findOne(data);
     }
-    finally {
+    catch (error) {
     }
     return null;
 }
 
-export async function getSharedFolder(db: Db, data: { _id: ObjectId }): Promise<SharedFolder | null> {
+export async function getSharedFolder(db: Db, data: { _id: ObjectId }): Promise<ModelSharedFolder | null> {
     try {
-        const folders = db.collection<SharedFolder>("folders");
-        const folder = await folders.findOne(data);
-        return folder;
+        const folders = db.collection<ModelSharedFolder>("folders");
+        return await folders.findOne(data);
     } catch (error) {
-    }
-    finally {
     }
     return null;
 }

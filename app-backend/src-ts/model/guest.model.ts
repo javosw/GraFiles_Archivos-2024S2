@@ -1,8 +1,8 @@
 import { ObjectId } from "mongodb";
 
-export type ModelMsg = { msg: string; }
-export function modelMsg(msg: string): ModelMsg {
-    return { msg };
+export type ModelMessage = { at: string; }
+export function modelMessage(message: string): ModelMessage {
+    return { at: message };
 }
 
 export type ModelRole = 'admin' | 'worker' | 'guest';

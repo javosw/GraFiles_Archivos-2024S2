@@ -1,5 +1,5 @@
 import session from 'express-session';
-import { modelMsg } from "../model/guest.model.js";
+import { modelMessage } from "../model/guest.model.js";
 const sessionOptions = {
     secret: 'gf',
     resave: false,
@@ -21,7 +21,7 @@ export async function getSession(req, res, next) {
         res.status(200).json(data);
     }
     else {
-        res.status(401).json(modelMsg('401@getSession'));
+        res.status(401).json(modelMessage('401@getSession'));
     }
 }
 export function checkSession(roles) {
@@ -30,11 +30,11 @@ export function checkSession(roles) {
             if (roles.includes(req.session.role)) {
                 return next();
             }
-            res.status(403).json(modelMsg('403@checkSession'));
+            res.status(403).json(modelMessage('403@checkSession'));
             return;
         }
         else {
-            res.status(401).json(modelMsg('401@checkSession'));
+            res.status(401).json(modelMessage('401@checkSession'));
             return;
         }
     };

@@ -2,26 +2,18 @@ import { ObjectId } from 'mongodb';
 export async function getFolder(db, data) {
     try {
         const collection = db.collection("folders");
-        const doc = await collection.findOne(data);
-        if (doc) {
-            return doc;
-        }
+        return await collection.findOne(data);
     }
     catch (error) {
-    }
-    finally {
     }
     return null;
 }
 export async function getSharedFolder(db, data) {
     try {
         const folders = db.collection("folders");
-        const folder = await folders.findOne(data);
-        return folder;
+        return await folders.findOne(data);
     }
     catch (error) {
-    }
-    finally {
     }
     return null;
 }
