@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 //
 import { WorkerService } from '../../../api/services/worker.service';
@@ -21,12 +21,13 @@ export class FileComponent {
   ngOnInit() { this.getFile(); }
   formOwner: string = '';
 
-  @Input() _id: string = '';
+  @Input() _id: string | null = null;
   modelFile: ModelFile | null = null;
 
   apiOpenFile: SafeResourceUrl | null = null;
 
   getFile() {
+    if (!this._id) { return }
     this.workerService.getFile({ _id: this._id }).subscribe({
       next: (value: ModelFile) => {
         this.modelFile = value;
@@ -59,16 +60,24 @@ export class FileComponent {
       fromUser: this.formOwner,
       toUser: this.formAllowedUser
     }).subscribe({
-      next:(value)=>{
+      next: (value) => {
         this.flagShareSent = true;
         this.flagShareOk = true;
       },
-      error:()=>{
+      error: () => {
         this.flagShareSent = true;
         this.flagShareOk = false;
       }
     })
   }
+
+  @Output() deleted = new EventEmitter<boolean>();
+
+  delFile() {
+    if (!this._id) { return }
+    this.workerService.delFile({ idFile: this._id }).subscribe((value) => { this.deleted.emit(true) })
+  }
+
 
   flagIcon: 'image' | 'text' | null = null;
   flagShowContent: boolean = false;
@@ -92,7 +101,7 @@ export class FileComponent {
       this.flagMove = !this.flagMove
     }
     else if (button == 'delete') {
-      this.flagDelete = !this.flagDelete;
+      this.delFile();
     }
   }
 

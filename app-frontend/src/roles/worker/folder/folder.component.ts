@@ -69,6 +69,11 @@ export class FolderComponent {
     });
   }
 
+  delFile(deleted: string) {
+    if (!this.dataFolder) { return }
+    this.dataFolder.files = this.dataFolder.files.filter((file) => { return file != deleted });
+  }
+
   flagShowContent: boolean = false;
   flagShowOperations: boolean = false;
   flagAddFolder: boolean = false;

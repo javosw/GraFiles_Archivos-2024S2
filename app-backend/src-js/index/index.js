@@ -41,6 +41,9 @@ app.get('/files/open', checkSession(['admin', 'worker']), openFile);
 import { shareFile } from '../middle/worker.mw.js';
 app.post('/files/share', checkSession(['admin', 'worker']), shareFile);
 // ========================================================
+import { delFile } from '../middle/worker.mw.js';
+app.post('/files/del', checkSession(['admin', 'worker']), delFile);
+// ========================================================
 app.get('/', (req, res) => {
     res.send('Welcome to Express & TypeScript Server');
 });

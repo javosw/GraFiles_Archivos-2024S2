@@ -38,4 +38,12 @@ users.forEach(user => {
     });
 });
 
+db.folders.insertOne({
+    _id: 'trash',
+    name: 'trash',
+    ancestor: null,
+    folders: [],
+    files: []
+});
+
 

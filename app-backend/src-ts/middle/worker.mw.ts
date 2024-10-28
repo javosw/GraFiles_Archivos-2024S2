@@ -142,3 +142,16 @@ export const shareFile = async (req: Request, res: Response, next: NextFunction)
     }
 }
 
+export const delFile = async (req: Request, res: Response, next: NextFunction) => {
+    const idFile: string = req.body.idFile;
+    const { delFile } = await import('../data/worker.data.js');
+    let value: number = await delFile(req.db, { idFile: new ObjectId(idFile) });
+
+    if (value == 1) {
+        res.status(200).json(modelMsg('200@delFile'));
+    }
+    else {
+        res.status(400).json(modelMsg('400@delFile'));
+        return;
+    }
+}

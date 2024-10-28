@@ -11,6 +11,7 @@ export let apiWorkerGetSharedFolder = 'http://localhost:3000/shared-folders/get'
 export let apiWorkerGetFile = 'http://localhost:3000/files/get';
 export let apiWorkerAddFile = 'http://localhost:3000/files/add';
 export let apiWorkerShareFile = 'http://localhost:3000/files/share';
+export let apiWorkerDelFile = 'http://localhost:3000/files/del';
 
 export function apiWorkerOpenFile(folder: string, file: string): string {
     return `http://localhost:3000/files/open?folder=${folder}&file=${file}`;
