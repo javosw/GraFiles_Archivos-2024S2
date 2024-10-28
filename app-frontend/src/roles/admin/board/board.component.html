@@ -1,8 +1,24 @@
 <div class="container mt-3">
     <h1>{{dataGetSessionOk?.username}}</h1>
     <hr>
+    <div class="dropdown col-sm-3">
+        <button class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            vista
+        </button>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" (click)="setCurrentView('folders')">folders</a></li>
+            <li><a class="dropdown-item" (click)="setCurrentView('add-user')">agregar usuario</a></li>
+        </ul>
+    </div>
+    <hr>
 
-    <gf-folder [_id]="dataGetSessionOk?.folderRoot || null"></gf-folder>
-    <gf-shared-folder [_id]="dataGetSessionOk?.folderShared || null"></gf-shared-folder>
-    <gf-trash-folder></gf-trash-folder>
+    @if(currentView == 'folders'){
+        <gf-folder [_id]="dataGetSessionOk?.folderRoot || null"></gf-folder>
+        <gf-shared-folder [_id]="dataGetSessionOk?.folderShared || null"></gf-shared-folder>
+        <gf-trash-folder></gf-trash-folder>    
+    }
+    @else if(currentView == 'add-user'){
+        <gf-add-user></gf-add-user>
+    }
 </div>

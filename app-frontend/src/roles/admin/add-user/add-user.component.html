@@ -1,0 +1,55 @@
+<div class="container px-5 mt-5">
+    <h5>Crear usuario</h5>
+    <hr />
+    <div class="container mb-3">
+        <div class="row mb-3">
+            <label class="col-12 col-md-2">Usuario</label>
+            <input [(ngModel)]="formAddUser.username" (blur)="checkUser()"
+                class="col form-control bg-secondary-subtle" />
+        </div>
+        <div class="row mb-3">
+            <label class="col-12 col-md-2">Contraseña</label>
+            <input [(ngModel)]="formAddUser.password" class="col form-control bg-secondary-subtle" />
+        </div>
+        <div class="mb-3 row">
+            <div class="dropdown col-12 col-md-2">
+                <button class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    Rol
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" (click)="setRol('worker')">empleado</a></li>
+                    <li><a class="dropdown-item" (click)="setRol('admin')">administrador</a></li>
+                </ul>
+            </div>
+            <input formControlName="rol" id="rol" [value]="formAddUser.role" readonly type="text"
+                class="form-control col">
+        </div>
+
+    </div>
+    <div class="d-flex justify-content-end">
+        <button (click)="addUser()" class="btn btn-sm btn-outline-primary">CREAR</button>
+    </div>
+    <hr />
+    @if (flagCheckUserReq && !flagCheckUserOk) {
+    <div class="d-flex bg-primary-subtle p-3 m-3">
+        <label>Usuario disponible.</label>
+    </div>
+    }
+    @else if (flagCheckUserReq && flagCheckUserOk) {
+    <div class="d-flex bg-danger-subtle p-3 m-3">
+        <label>Usuario <u>no</u> disponible.</label>
+    </div>
+    }
+    @if (flagAddUserReq && flagAddUserOk) {
+    <div class="d-flex bg-primary-subtle p-3 m-3">
+        <label>Usuario creado.</label>
+    </div>
+    }
+    @else if (flagAddUserReq && !flagAddUserOk) {
+    <div class="d-flex bg-danger-subtle p-3 m-3">
+        <label>Usuario <u>no</u> creado.</label>
+    </div>
+    }
+
+</div>

@@ -73,6 +73,11 @@ app.post('/files/del', checkSession(['admin', 'worker']), delFile);
 
 // ========================================================
 
+import { addUser } from '../middle/admin.mw.js';
+app.post('/users/add', checkSession(['admin']), addUser);
+
+// ========================================================
+
 app.get('/', (req: Request, res: Response) => {
     res.send('Welcome to Express & TypeScript Server');
 });

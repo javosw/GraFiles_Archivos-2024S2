@@ -1,8 +1,6 @@
 export let api: string = 'http://localhost:3000';
 
 export let apiGuestAddSesion: string = 'http://localhost:3000/session/get';
-export let apiGuestAddWorker: string = '';
-export let apiGuestGetWorker: string = '';
 
 
 export let apiWorkerAddFolder = 'http://localhost:3000/folders/add';
@@ -17,3 +15,6 @@ export let apiWorkerDelFile = 'http://localhost:3000/files/del';
 export function apiWorkerOpenFile(folder: string, file: string): string {
     return `http://localhost:3000/files/open?folder=${folder}&file=${file}`;
 }
+
+export let apiAdminAddUser: string = 'http://localhost:3000/users/add';
+export let apiAdminCheckUser: string = 'http://localhost:3000/users/check';

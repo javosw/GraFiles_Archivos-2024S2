@@ -18,3 +18,15 @@ export const getTrashFolder = async (req, res, next) => {
         return;
     }
 };
+export const addUser = async (req, res, next) => {
+    const { addUser } = await import('../data/admin.data.js');
+    const { username, password, role } = req.body;
+    const value = await addUser(req.db, { username, password, role });
+    if (value) {
+        res.status(200).json({ idUser: value.toString() });
+    }
+    else {
+        res.status(400).json(modelMessage('400@getTrashFolder'));
+        return;
+    }
+};

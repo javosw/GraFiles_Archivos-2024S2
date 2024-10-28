@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 //
-import { modelMessage } from "../model/guest.model.js";
+import { modelMessage, ModelRole } from "../model/guest.model.js";
 
 export const getTrashFolder = async (req: Request, res: Response, next: NextFunction) => {
     const { getTrashFolder } = await import('../data/admin.data.js');
@@ -22,5 +22,21 @@ export const getTrashFolder = async (req: Request, res: Response, next: NextFunc
         res.status(400).json(modelMessage('400@getTrashFolder'));
         return;
     }
-
 }
+
+export const addUser = async (req: Request, res: Response, next: NextFunction) => {
+    const { addUser } = await import('../data/admin.data.js');
+    const { username, password, role } = req.body as { username: string, password: string, role: ModelRole };
+    const value = await addUser(req.db, { username, password, role });
+
+    if (value) {
+        res.status(200).json({ idUser: value.toString() });
+    }
+    else {
+        res.status(400).json(modelMessage('400@getTrashFolder'));
+        return;
+    }
+}
+
+
+
