@@ -12,7 +12,7 @@
     @if(flagShowContent){
     <ul>
         @for (file of dataFolder?.files; track file) {
-        <li><gf-file [_id]="file.idFile"></gf-file></li>
+        <li><gf-shared-file [_id]="file.idFile" [fromUser]="file.fromUser"></gf-shared-file></li>
         }
     </ul>
     }

@@ -2,13 +2,13 @@ import { Component, Input } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 //
 import { WorkerService } from '../../../api/services/worker.service';
-import { ModelFolder, SharedFolder } from '../../../model/worker.model';
-import { FileComponent } from '../file/file.component';
+import { SharedFolder } from '../../../model/worker.model';
+import { SharedFileComponent } from '../shared-file/shared-file.component';
 
 @Component({
   selector: 'gf-shared-folder',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, FileComponent],
+  imports: [FormsModule, ReactiveFormsModule, SharedFileComponent],
   templateUrl: './shared-folder.component.html',
   styles: `
   .folder { width: 500px; }
