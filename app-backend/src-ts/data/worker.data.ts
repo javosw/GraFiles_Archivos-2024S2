@@ -148,11 +148,8 @@ export const delFile = async (db: Db, data: { idFile: ObjectId }): Promise<numbe
         }
 
         const folders = db.collection<Folder>('folders');
-        const folder = await folders.findOne({ _id: file.ancestor });
-        console.log(folder)
 
         const modFolder = await folders.updateOne({ _id: file.ancestor }, { $pull: { files: data.idFile } });
-        console.log(folder)
         if (modFolder.modifiedCount != 1) { return 0 }
 
         const modTrash = await folders.updateOne({ _id: 'trash' }, { $push: { files: data.idFile } });

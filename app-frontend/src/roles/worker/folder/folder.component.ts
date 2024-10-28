@@ -52,7 +52,6 @@ export class FolderComponent {
       let element = event.target as HTMLInputElement;
       let fileList: FileList | null = element.files;
       if (fileList) {
-        console.log(fileList);
         this.file = fileList[0];
       }
     }

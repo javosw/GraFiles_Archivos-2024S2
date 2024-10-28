@@ -7,9 +7,6 @@ export async function getUser(db, data) {
         }
     }
     catch (error) {
-        console.log({ msg: '@getUser.data' });
-    }
-    finally {
     }
     return null;
 }

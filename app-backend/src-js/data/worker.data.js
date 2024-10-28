@@ -122,10 +122,7 @@ export const delFile = async (db, data) => {
             return 0;
         }
         const folders = db.collection('folders');
-        const folder = await folders.findOne({ _id: file.ancestor });
-        console.log(folder);
         const modFolder = await folders.updateOne({ _id: file.ancestor }, { $pull: { files: data.idFile } });
-        console.log(folder);
         if (modFolder.modifiedCount != 1) {
             return 0;
         }

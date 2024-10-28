@@ -41,7 +41,6 @@ export const getSharedFolder = async (req, res, next) => {
             name: value.name,
             files
         };
-        console.log(bodyRes);
         res.status(200).json(bodyRes);
     }
     else {

@@ -52,7 +52,6 @@ export const getSharedFolder = async (req: Request, res: Response, next: NextFun
             files
         }
 
-        console.log(bodyRes);
         res.status(200).json(bodyRes);
     }
     else {

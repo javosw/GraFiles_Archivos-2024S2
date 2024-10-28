@@ -8,10 +8,8 @@ export async function getUser(db: Db, data: { username: string; password: string
         if (doc) {
             return doc;
         }
-    } catch (error) {
-        console.log({ msg: '@getUser.data' });
     }
-    finally {
+    catch (error) {
     }
     return null;
 }
