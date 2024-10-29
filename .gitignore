@@ -1,3 +1,4 @@
 app-backend/node_modules/
 app-backend/files
 app-frontend-server/node_modules/
+app-frontend-server/public/
