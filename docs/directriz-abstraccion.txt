@@ -7,6 +7,7 @@ GraFiles
 vistas
 	login
 		form: {username;password}
+	roles
 	
 roles
 	empleado
@@ -14,7 +15,7 @@ roles
 		(?) mod password
 	administrador extends empleado
 		add empleado
-		papeleria (historial de archivos eliminados)
+		papelera (historial de archivos eliminados)
 sistema de archivos
 	carpetas iniciales
 		root: para archivos privados
@@ -40,8 +41,8 @@ sistema de archivos
 				reemplazar imagen actual
 		para cada archivo/carpeta
 			del
-				cut desde carpeta actual hacia <<papeleria>>
-				cada archivo/carpeta en papeleria ya no es visible para el usuario
+				cut desde carpeta actual hacia <<papelera>>
+				cada archivo/carpeta en papelera ya no es visible para el usuario
 			(?) copy
 				desde carpeta actual hacia <<carpeta actual>>
 			(?) move
