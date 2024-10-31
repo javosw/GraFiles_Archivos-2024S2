@@ -1,0 +1,31 @@
+#image: mongo:8.0.1-slim
+#docker compose -f "docker-compose.yml" up -d --build 
+services:
+  data:
+    image: mongo:8
+    ports:
+      - 27017:27017
+    networks:
+      - gf
+    container_name: data
+    volumes:
+      - ./data/:/docker-entrypoint-initdb.d/
+  back:
+    build: 
+      context: ./app-backend
+    ports:
+      - 3000:3000
+    networks:
+      - gf
+    container_name: back
+    depends_on:
+      - data
+  front:
+    build: 
+      context: ./app-frontend-server
+    ports:
+      - 4200:4200
+    container_name: front
+
+networks:
+  gf:

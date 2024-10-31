@@ -1,6 +1,6 @@
 import { MongoClient, Db, MongoClientOptions } from 'mongodb';
 
-let url = 'mongodb://localhost:27017';
+let url = 'mongodb://data:27017';
 let options: MongoClientOptions = {}
 
 export let mongoClient: MongoClient | null = null;

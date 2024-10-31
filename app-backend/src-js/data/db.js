@@ -1,5 +1,5 @@
 import { MongoClient } from 'mongodb';
-let url = 'mongodb://localhost:27017';
+let url = 'mongodb://data:27017';
 let options = {};
 export let mongoClient = null;
 export const gfDb = async () => {
