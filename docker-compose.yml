@@ -6,26 +6,20 @@ services:
     ports:
       - 27017:27017
     networks:
-      - gf
-    container_name: data
+      - grafiles
+    container_name: grafiles-data
     volumes:
       - ./data/:/docker-entrypoint-initdb.d/
   back:
     build: 
-      context: ./app-backend
+      context: .
     ports:
       - 3000:3000
     networks:
-      - gf
-    container_name: back
+      - grafiles
+    container_name: grafiles-backend
     depends_on:
       - data
-  front:
-    build: 
-      context: ./app-frontend-server
-    ports:
-      - 4200:4200
-    container_name: front
 
 networks:
-  gf:
+  grafiles:

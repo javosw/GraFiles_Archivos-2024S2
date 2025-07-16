@@ -78,13 +78,19 @@ app.post('/users/add', checkSession(['admin']), addUser);
 
 // ========================================================
 
-app.get('/', (req: Request, res: Response) => {
-    res.send('Welcome to Express & TypeScript Server');
+import path from 'path';
+
+const publicPath: string = path.join(process.cwd(), 'dist', 'public');
+app.use(express.static(publicPath));
+
+app.get('*', (req: Request, res: Response) => {
+    const indexPath = path.join(publicPath, 'index.html');
+    res.sendFile(indexPath);
 });
 
 // ========================================================
 
-const PORT = 3000;
+const PORT = process.env.PORT_BACKEND || 3000;
 
 app.listen(PORT, () => {
     console.log(`[express] http://localhost:${PORT}`);

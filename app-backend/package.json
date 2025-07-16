@@ -2,25 +2,26 @@
   "name": "app-backend",
   "version": "1.0.0",
   "description": "",
-  "main": "./src-js/index/index.js",
+  "main": "./dist/index/index.js",
   "type": "module",
   "scripts": {
-    "noded": "nodemon --watch ./src-js",
-    "tsd": "npx tsc --watch",
-    "node": "node ./src-js/index/index.js"
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "start": "node ./dist/index/index.js",
+    "start:watch": "nodemon ./dist/index/index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/cors": "^2.8.17",
-    "@types/express": "^5.0.0",
-    "@types/express-session": "^1.18.0",
-    "@types/multer": "^1.4.12",
-    "@types/node": "^22.7.5",
-    "nodemon": "^3.1.7",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "@types/express-session": "^1.18.2",
+    "@types/multer": "^1.4.13",
+    "@types/node": "^22.16.3",
+    "nodemon": "^3.1.10",
     "ts-node": "^10.9.2",
-    "typescript": "^5.6.3"
+    "typescript": "^5.8.3"
   },
   "dependencies": {
     "cors": "^2.8.5",
